@@ -859,6 +859,8 @@ const SkillsApp = () => {
       skills: [
         { name: 'Kubernetes', level: 90, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg' },
         { name: 'Docker', level: 95, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+        { name: 'AWS', level: 80, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg' },
+        { name: 'Azure', level: 75, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg' },
         { name: 'Terraform', level: 85, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg' },
         { name: 'ArgoCD', level: 80, icon: 'https://argo-cd.readthedocs.io/en/stable/assets/logo.png' },
         { name: 'Prometheus', level: 85, icon: '/images/prometheus.png' },
@@ -1414,10 +1416,10 @@ const CertificationsApp = () => {
       issued: 'October 2025',
       description: 'Foundational certification demonstrating knowledge of Oracle Cloud Infrastructure core services, security, pricing, and support.',
       skills: ['Oracle Cloud', 'Cloud Computing', 'Infrastructure', 'Cloud Security'],
-      logo: '/images/oracleimg.png',
-      color: 'from-white to-gray-100',
+      logo: '/images/oracleimg1.png',
+      color: 'from-orange-500 to-red-600',
       verified: true,
-      credlyUrl: 'https://www.credly.com/badges/your-oci-badge-id'
+      credlyUrl: 'https://shorturl.at/CTFtI'
     },
     {
       name: 'Kubernetes and Cloud Native Associate (KCNA)',
@@ -1428,7 +1430,7 @@ const CertificationsApp = () => {
       logo: '/images/KCNA-Logo.png',
       color: 'from-white to-gray-100',
       verified: true,
-      credlyUrl: 'https://www.credly.com/badges/your-kcna-badge-id'
+      credlyUrl: 'https://www.credly.com/badges/110eaa5a-b764-421d-8310-1e44c6c4033b'
     },
     {
       name: 'Docker Foundations Professional Certificate',
@@ -1436,10 +1438,10 @@ const CertificationsApp = () => {
       issued: 'June 2025',
       description: 'Professional certification demonstrating expertise in Docker containerization, image management, and container orchestration.',
       skills: ['Docker', 'Containerization', 'Image Management', 'Container Orchestration'],
-      logo: '/images/docker2.png',
+      logo: '/images/dock.png',
       color: 'from-white to-gray-100',
       verified: true,
-      credlyUrl: 'https://www.credly.com/badges/your-docker-badge-id'
+      credlyUrl: 'https://shorturl.at/tA4ua'
     }
   ];
 
@@ -1511,13 +1513,12 @@ const CertificationsApp = () => {
           >
             <div className="flex items-start gap-6">
               <motion.div
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${cert.color} flex items-center justify-center flex-shrink-0 shadow-glow p-3`}
+                className={`w-20 h-20 rounded-2xl ${cert.name.includes('Oracle') ? '' : `bg-gradient-to-br ${cert.color}`} flex items-center justify-center flex-shrink-0 shadow-glow ${cert.name.includes('Oracle') ? 'p-0 overflow-hidden' : 'p-3'}`}
               >
                 <img 
                   src={cert.logo} 
                   alt={`${cert.name} logo`}
-                  className={`w-full h-full object-contain ${cert.name.includes('Kubernetes') || cert.name.includes('Docker') ? '' : 'filter brightness-0 invert'}`}
+                  className={`${cert.name.includes('Oracle') ? 'w-full h-full object-cover' : 'w-full h-full object-contain'} ${cert.name.includes('Kubernetes') || cert.name.includes('Docker') || cert.name.includes('Oracle') ? '' : 'filter brightness-0 invert'}`}
                 />
               </motion.div>
               
