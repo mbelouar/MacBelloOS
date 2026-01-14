@@ -1414,7 +1414,7 @@ const CertificationsApp = () => {
       issued: 'October 2025',
       description: 'Foundational certification demonstrating knowledge of Oracle Cloud Infrastructure core services, security, pricing, and support.',
       skills: ['Oracle Cloud', 'Cloud Computing', 'Infrastructure', 'Cloud Security'],
-      logo: '/images/oracleimg.jpg',
+      logo: '/images/oracleimg.ppg',
       color: 'from-white to-gray-100',
       verified: true,
       credlyUrl: 'https://www.credly.com/badges/your-oci-badge-id'
