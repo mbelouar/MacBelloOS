@@ -1409,6 +1409,17 @@ const ExperienceApp = () => {
 const CertificationsApp = () => {
   const certifications = [
     {
+      name: 'Oracle Cloud Infrastructure Certified Foundations Associate',
+      issuer: 'Oracle',
+      issued: 'October 2025',
+      description: 'Foundational certification demonstrating knowledge of Oracle Cloud Infrastructure core services, security, pricing, and support.',
+      skills: ['Oracle Cloud', 'Cloud Computing', 'Infrastructure', 'Cloud Security'],
+      logo: '/images/oracle-oci-logo.png',
+      color: 'from-white to-gray-100',
+      verified: true,
+      credlyUrl: 'https://www.credly.com/badges/your-oci-badge-id'
+    },
+    {
       name: 'Kubernetes and Cloud Native Associate (KCNA)',
       issuer: 'The Linux Foundation',
       issued: 'September 2025',
@@ -2314,6 +2325,11 @@ const TerminalApp = () => {
         response = [
           'Professional Certifications',
           '===========================',
+          '',
+          '☁️ Oracle Cloud Infrastructure Certified Foundations Associate',
+          '   Issuer: Oracle',
+          '   Date: October 2025',
+          '   Focus: OCI core services, security, and cloud infrastructure',
           '',
           '🏆 KCNA - Kubernetes and Cloud Native Associate',
           '   Issuer: The Linux Foundation',
