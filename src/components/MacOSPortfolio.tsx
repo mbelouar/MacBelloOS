@@ -859,13 +859,14 @@ const SkillsApp = () => {
       skills: [
         { name: 'Kubernetes', level: 90, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg' },
         { name: 'Docker', level: 95, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
-        { name: 'AWS', level: 80, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg' },
+        { name: 'AWS', level: 70, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg' },
         { name: 'Azure', level: 75, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg' },
+        { name: 'OCI', level: 75, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg' },
         { name: 'Terraform', level: 85, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg' },
-        { name: 'ArgoCD', level: 80, icon: 'https://argo-cd.readthedocs.io/en/stable/assets/logo.png' },
-        { name: 'Prometheus', level: 85, icon: '/images/prometheus.png' },
-        { name: 'Grafana', level: 80, icon: 'https://grafana.com/static/img/menu/grafana2.svg' },
-        { name: 'CI/CD', level: 90, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
+        { name: 'ArgoCD', level: 70, icon: 'https://argo-cd.readthedocs.io/en/stable/assets/logo.png' },
+        { name: 'Prometheus', level: 75, icon: '/images/prometheus.png' },
+        { name: 'Grafana', level: 75, icon: 'https://grafana.com/static/img/menu/grafana2.svg' },
+        { name: 'CI/CD', level: 85, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
         { name: 'Vagrant', level: 70, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vagrant/vagrant-original.svg' },
         { name: 'Linux/Unix', level: 90, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg' }
       ]
@@ -875,8 +876,8 @@ const SkillsApp = () => {
       icon: Code,
       color: 'from-gray-800 to-gray-700',
       skills: [
-        { name: 'Python', level: 90, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-        { name: 'C/C++', level: 85, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg' }
+        { name: 'Python', level: 85, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+        { name: 'C/C++', level: 90, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg' }
       ]
     },
     {
@@ -967,13 +968,11 @@ const SkillsApp = () => {
           className="glass-card p-6 rounded-2xl"
         >
           <div className="flex items-center gap-4 mb-6">
-            <motion.div 
+            <div 
               className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg border border-white/20`}
-              whileHover={{ scale: 1.05, rotate: 5 }}
-              transition={{ duration: 0.3 }}
             >
               <category.icon className="w-7 h-7 text-white drop-shadow-sm" />
-            </motion.div>
+            </div>
             <div className="flex-1">
               <h3 className="text-2xl font-bold text-foreground bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
                 {category.category}
@@ -994,13 +993,11 @@ const SkillsApp = () => {
                   type: "spring",
                   stiffness: 100
                 }}
-                whileHover={{ scale: 1.02, y: -5 }}
-                className="group glass-card p-4 rounded-xl hover:shadow-glass-hover transition-all duration-300 border border-white/10 hover:border-blue-500/30"
+                className="group glass-card p-4 rounded-xl border border-white/10"
               >
                 <div className="flex items-center gap-4 mb-4">
-                  <motion.div 
-                    className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10 group-hover:border-blue-500/30 transition-all duration-300"
-                    whileHover={{ rotate: 5, scale: 1.1 }}
+                  <div 
+                    className="w-12 h-12 flex items-center justify-center rounded-xl bg-white border border-gray-200 hover:border-blue-500/50 hover:scale-105 transition-all duration-100 shadow-sm"
                   >
                 {skill.name === 'Prometheus' ? (
                   <img
@@ -1030,7 +1027,7 @@ const SkillsApp = () => {
                     }}
                   />
                 )}
-                  </motion.div>
+                  </div>
                   <div className="flex-1">
                     <h5 className="text-sm font-semibold text-foreground group-hover:text-gray-400 transition-colors">
                       {skill.name}
@@ -1072,13 +1069,11 @@ const SkillsApp = () => {
         className="glass-card p-6 rounded-2xl"
       >
         <div className="flex items-center gap-4 mb-6">
-          <motion.div 
+          <div
             className="w-14 h-14 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-700 flex items-center justify-center shadow-lg border border-white/20"
-            whileHover={{ scale: 1.05, rotate: 5 }}
-            transition={{ duration: 0.3 }}
           >
             <Globe className="w-7 h-7 text-white drop-shadow-sm" />
-          </motion.div>
+          </div>
           <div className="flex-1">
             <h4 className="text-2xl font-bold text-foreground bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
               Languages
@@ -1091,13 +1086,11 @@ const SkillsApp = () => {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.6, type: "spring", stiffness: 100 }}
-            whileHover={{ scale: 1.02, y: -5 }}
-            className="group glass-card p-4 rounded-xl hover:shadow-glass-hover transition-all duration-300 border border-white/10 hover:border-blue-500/30"
+            className="group glass-card p-4 rounded-xl border border-white/10"
           >
             <div className="flex items-center gap-4 mb-4">
-               <motion.div
-                 className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-red-500/20 to-green-500/20 backdrop-blur-sm border border-white/10 group-hover:border-red-500/30 transition-all duration-300 relative overflow-hidden"
-                 whileHover={{ rotate: 5, scale: 1.1 }}
+               <div
+                 className="w-12 h-12 flex items-center justify-center rounded-xl bg-white hover:border-blue-500/50 hover:scale-105 transition-all duration-100 border border-gray-200 shadow-sm relative overflow-hidden"
                >
                  <div className="absolute inset-0 bg-green-600/90 rounded-xl border border-green-500/30"></div>
                  <div className="absolute inset-0 flex items-center justify-center">
@@ -1109,7 +1102,7 @@ const SkillsApp = () => {
                  <div className="absolute inset-0 flex items-center justify-center">
                    <div className="w-4 h-4 rounded-full bg-white/20 border border-white/30"></div>
                  </div>
-               </motion.div>
+               </div>
               <div className="flex-1">
                 <h5 className="text-sm font-semibold text-foreground group-hover:text-gray-400 transition-colors">
                   Arabic
@@ -1140,13 +1133,11 @@ const SkillsApp = () => {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.7, type: "spring", stiffness: 100 }}
-            whileHover={{ scale: 1.02, y: -5 }}
-            className="group glass-card p-4 rounded-xl hover:shadow-glass-hover transition-all duration-300 border border-white/10 hover:border-blue-500/30"
+            className="group glass-card p-4 rounded-xl border border-white/10"
           >
             <div className="flex items-center gap-4 mb-4">
-               <motion.div
-                 className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10 group-hover:border-blue-500/30 transition-all duration-300 relative overflow-hidden"
-                 whileHover={{ rotate: 5, scale: 1.1 }}
+               <div
+                 className="w-12 h-12 flex items-center justify-center rounded-xl bg-white hover:border-blue-500/50 hover:scale-105 transition-all duration-100 border border-gray-200 shadow-sm relative overflow-hidden"
                >
                  <div className="absolute inset-0 flex">
                    <div className="w-1/3 bg-blue-600/80 rounded-l-xl border-r border-white/20"></div>
@@ -1156,7 +1147,7 @@ const SkillsApp = () => {
                  <div className="relative z-10 flex items-center justify-center">
                    <div className="w-2 h-2 rounded-full bg-white shadow-lg"></div>
                  </div>
-               </motion.div>
+               </div>
               <div className="flex-1">
                 <h5 className="text-sm font-semibold text-foreground group-hover:text-gray-400 transition-colors">
                   French
@@ -1187,13 +1178,11 @@ const SkillsApp = () => {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.8, type: "spring", stiffness: 100 }}
-            whileHover={{ scale: 1.02, y: -5 }}
-            className="group glass-card p-4 rounded-xl hover:shadow-glass-hover transition-all duration-300 border border-white/10 hover:border-blue-500/30"
+            className="group glass-card p-4 rounded-xl border border-white/10"
           >
             <div className="flex items-center gap-4 mb-4">
-               <motion.div
-                 className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10 group-hover:border-blue-500/30 transition-all duration-300 relative overflow-hidden"
-                 whileHover={{ rotate: 5, scale: 1.1 }}
+               <div
+                 className="w-12 h-12 flex items-center justify-center rounded-xl bg-white hover:border-blue-500/50 hover:scale-105 transition-all duration-100 border border-gray-200 shadow-sm relative overflow-hidden"
                >
                  <div className="absolute inset-0 bg-white/80 rounded-xl border border-white/20"></div>
                  <div className="absolute inset-0 flex items-center justify-center">
@@ -1205,7 +1194,7 @@ const SkillsApp = () => {
                  <div className="absolute inset-0 flex items-center justify-center">
                    <div className="w-3 h-3 bg-red-600/20 rounded-full"></div>
                  </div>
-               </motion.div>
+               </div>
               <div className="flex-1">
                 <h5 className="text-sm font-semibold text-foreground group-hover:text-gray-400 transition-colors">
                   English
