@@ -1,114 +1,47 @@
-# Contact Form Backend Setup Guide
+# Contact form setup
 
-## 🎉 Backend Implementation Complete!
+The Contact app posts to `POST /api/contact`, which emails the message to you via Gmail SMTP (nodemailer).
 
-Your contact form now has a fully functional backend that will send emails when visitors submit the form.
-
-## 📧 Email Setup Required
-
-To make the contact form work, you need to configure your email settings:
-
-### 1. Create Environment Variables
-
-Create a `.env.local` file in your project root with your email credentials:
+## 1. Configure credentials
 
 ```bash
-# Copy the example file
 cp env.example .env.local
 ```
-
-Then edit `.env.local` with your actual email settings:
 
 ```env
 EMAIL_USER=your-email@gmail.com
 EMAIL_PASS=your-app-password
+# Optional — deliver to a different inbox (defaults to EMAIL_USER)
+# EMAIL_TO=you@example.com
 ```
 
-### 2. Gmail Setup (Recommended)
+`EMAIL_PASS` must be a Gmail **App Password**, not your account password:
+Google Account → Security → 2-Step Verification → App passwords.
 
-For Gmail, you'll need to use an **App Password** instead of your regular password:
+On Vercel (or any host), set the same variables in the project's environment settings.
 
-1. Go to [Google Account Settings](https://myaccount.google.com/)
-2. Navigate to **Security** → **2-Step Verification**
-3. Scroll down to **App passwords**
-4. Generate a new app password for "Mail"
-5. Use this app password in your `.env.local` file
+If the variables are missing, the API returns `503` with a friendly message instead of crashing.
 
-### 3. Alternative Email Services
+## 2. What the endpoint does
 
-You can also use other email services by modifying the configuration in `/src/app/api/contact/route.ts`:
+- Validates all fields (required, max lengths, email format) and rejects malformed JSON.
+- **Escapes** all user input before putting it in the HTML email, and strips line breaks from single-line fields (prevents HTML/header injection).
+- **Rate-limits** to 5 messages per IP per 15 minutes (in-memory, per server instance).
+- **Honeypot** field silently drops bot submissions.
+- Sets `Reply-To` to the visitor, so you can answer straight from your inbox.
 
-```typescript
-// For Outlook/Hotmail
-service: 'hotmail'
+> The previous version also sent an automatic "thank you" email to whatever address the visitor typed.
+> That let anyone use your Gmail account to send email to arbitrary people, so it has been removed.
 
-// For Yahoo
-service: 'yahoo'
+## 3. Using another provider
 
-// For custom SMTP
-host: 'smtp.your-provider.com',
-port: 587,
-secure: false
+Edit `getTransporter()` in `src/app/api/contact/route.ts`, e.g.:
+
+```ts
+nodemailer.createTransport({
+  host: 'smtp.your-provider.com',
+  port: 587,
+  secure: false,
+  auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+});
 ```
-
-## 🚀 Features Implemented
-
-✅ **Email Sending**: Form submissions are sent to your email  
-✅ **Confirmation Emails**: Senders receive automatic confirmation  
-✅ **Form Validation**: Client and server-side validation  
-✅ **Error Handling**: User-friendly error messages  
-✅ **Loading States**: Visual feedback during submission  
-✅ **Success Feedback**: Confirmation when message is sent  
-✅ **Responsive Design**: Works on all devices
-
-## 🧪 Testing
-
-1. Start your development server: `npm run dev`
-2. Open the Contact app in your portfolio
-3. Fill out and submit the form
-4. Check your email for the message
-5. The sender should receive a confirmation email
-
-## 🔒 Security Features
-
-- Input validation and sanitization
-- Email format validation
-- Rate limiting (basic implementation)
-- Secure environment variable handling
-- Error logging for debugging
-
-## 📝 Customization
-
-You can customize the email templates in `/src/app/api/contact/route.ts`:
-
-- Modify the HTML email template
-- Change the confirmation message
-- Add your own styling
-- Include additional information
-
-## 🐛 Troubleshooting
-
-**Form not sending emails?**
-
-- Check your `.env.local` file exists and has correct credentials
-- Verify your email service settings
-- Check the browser console for errors
-- Ensure your email provider allows SMTP access
-
-**Build errors?**
-
-- Run `npm run build` to check for TypeScript errors
-- Ensure all dependencies are installed: `npm install`
-
-## 🎯 Next Steps
-
-Your contact form is now fully functional! Consider these future enhancements:
-
-- Add a database to store contact submissions
-- Implement spam protection (reCAPTCHA)
-- Add analytics to track form submissions
-- Create an admin dashboard to manage messages
-
----
-
-**Need help?** Check the console logs or contact me for assistance!

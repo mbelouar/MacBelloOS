@@ -1,35 +1,34 @@
-import type { Metadata } from 'next'
-import { JetBrains_Mono } from 'next/font/google'
-import './globals.css'
+import type { Metadata, Viewport } from 'next';
+import { Inter, JetBrains_Mono } from 'next/font/google';
+import './globals.css';
 
-const jetbrainsMono = JetBrains_Mono({ 
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-jetbrains-mono'
-})
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
+const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
 
 export const metadata: Metadata = {
-  title: 'BEL OUARRAQ MOHAMMED - Portfolio',
-  description: 'Final-year Computer Engineering Student & DevOps & Cloud Enthusiast - Interactive macOS-style portfolio',
-  keywords: 'portfolio, devops, cloud, kubernetes, docker, computer engineering, student',
-  authors: [{ name: 'BEL OUARRAQ MOHAMMED' }],
-}
+  title: 'Mohammed Bel Ouarraq — DevOps & Cloud',
+  description:
+    'Interactive desktop-style portfolio of Mohammed Bel Ouarraq, Computer Engineering student focused on DevOps, Kubernetes and cloud infrastructure.',
+  keywords: ['portfolio', 'devops', 'cloud', 'kubernetes', 'docker', 'terraform', 'computer engineering'],
+  authors: [{ name: 'Mohammed Bel Ouarraq' }],
+  openGraph: {
+    title: 'Mohammed Bel Ouarraq — DevOps & Cloud',
+    description: 'Interactive desktop-style portfolio — projects, skills, certifications and more.',
+    type: 'website',
+  },
+};
 
-export const viewport = {
+export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-}
+  viewportFit: 'cover',
+  themeColor: '#0a0a0c',
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={jetbrainsMono.className}>
-        {children}
-      </body>
+    <html lang="en" className={`${inter.variable} ${mono.variable}`}>
+      <body>{children}</body>
     </html>
-  )
+  );
 }

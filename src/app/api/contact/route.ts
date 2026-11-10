@@ -1,155 +1,117 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import nodemailer, { type Transporter } from 'nodemailer';
 
-// Email configuration
-const transporter = nodemailer.createTransport({
-  service: 'gmail', // You can change this to your preferred email service
-  auth: {
-    user: process.env.EMAIL_USER, // Your email
-    pass: process.env.EMAIL_PASS, // Your email password or app password
-  },
-});
+export const runtime = 'nodejs';
+
+const LIMITS = { name: 100, email: 200, subject: 150, message: 5000 } as const;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+// Best-effort in-memory rate limit: 5 messages per IP per 15 minutes.
+// (Per server instance — good enough to stop casual abuse on a portfolio.)
+const WINDOW_MS = 15 * 60 * 1000;
+const MAX_PER_WINDOW = 5;
+const hits = new Map<string, number[]>();
+
+function rateLimited(ip: string) {
+  const now = Date.now();
+  const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  if (recent.length >= MAX_PER_WINDOW) {
+    hits.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  hits.set(ip, recent);
+  if (hits.size > 5000) {
+    for (const [key, times] of hits) if (!times.some((t) => now - t < WINDOW_MS)) hits.delete(key);
+  }
+  return false;
+}
+
+const escapeHtml = (s: string) =>
+  s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+
+/** Single-line fields must never contain line breaks (prevents header injection). */
+const oneLine = (s: string) => s.replace(/[\r\n\t]+/g, ' ').trim();
+
+let transporter: Transporter | null = null;
+function getTransporter() {
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) return null;
+  transporter ??= nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+  });
+  return transporter;
+}
+
+const bad = (error: string, status = 400) => NextResponse.json({ error }, { status });
 
 export async function POST(request: NextRequest) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
+
+  let body: Record<string, unknown>;
   try {
-    const body = await request.json();
-    const { name, email, subject, message } = body;
-
-    // Basic validation
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json(
-        { error: 'All fields are required' },
-        { status: 400 }
-      );
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email format' },
-        { status: 400 }
-      );
-    }
-
-    // Rate limiting (simple implementation)
-    const clientIP = request.ip || request.headers.get('x-forwarded-for') || 'unknown';
-    // You can implement more sophisticated rate limiting here
-
-    // Email content
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER, // Send to yourself
-      replyTo: email, // Allow direct reply to sender
-      subject: `Portfolio Contact: ${subject}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px 10px 0 0;">
-            <h2 style="color: white; margin: 0; text-align: center;">New Contact Form Submission</h2>
-          </div>
-          <div style="background: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px;">
-            <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-              <h3 style="color: #333; margin-top: 0;">Contact Details</h3>
-              <p><strong>Name:</strong> ${name}</p>
-              <p><strong>Email:</strong> ${email}</p>
-              <p><strong>Subject:</strong> ${subject}</p>
-              <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-              <h3 style="color: #333;">Message</h3>
-              <p style="white-space: pre-wrap; line-height: 1.6;">${message}</p>
-            </div>
-            <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #2196f3;">
-              <p style="margin: 0; color: #1976d2; font-size: 14px;">
-                <strong>Note:</strong> This message was sent from your portfolio contact form. 
-                You can reply directly to this email to respond to ${name}.
-              </p>
-            </div>
-          </div>
-        </div>
-      `,
-      text: `
-        New Contact Form Submission
-        
-        Name: ${name}
-        Email: ${email}
-        Subject: ${subject}
-        
-        Message:
-        ${message}
-        
-        ---
-        This message was sent from your portfolio contact form.
-        You can reply directly to this email to respond to ${name}.
-      `,
-    };
-
-    // Send email
-    await transporter.sendMail(mailOptions);
-
-    // Send confirmation email to the sender
-    const confirmationOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'Thank you for contacting Mohammed Bel Ouarraq',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px 10px 0 0;">
-            <h2 style="color: white; margin: 0; text-align: center;">Message Received!</h2>
-          </div>
-          <div style="background: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px;">
-            <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-              <h3 style="color: #333; margin-top: 0;">Hello ${name},</h3>
-              <p>Thank you for reaching out! I've received your message and will get back to you as soon as possible.</p>
-              
-              <div style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin: 20px 0;">
-                <h4 style="margin-top: 0; color: #1976d2;">Your Message Summary:</h4>
-                <p><strong>Subject:</strong> ${subject}</p>
-                <p><strong>Message:</strong> ${message.substring(0, 100)}${message.length > 100 ? '...' : ''}</p>
-              </div>
-              
-              <p>I typically respond within 24 hours. If you have any urgent inquiries, feel free to reach out via:</p>
-              <ul>
-                <li>📧 Email: medbelouarraq@gmail.com</li>
-                <li>📱 Phone: +212 688 191 812</li>
-                <li>💼 LinkedIn: <a href="https://www.linkedin.com/in/mohammed-bel-ouarraq-554057218/" style="color: #0077b5;">Mohammed Bel Ouarraq</a></li>
-              </ul>
-              
-              <p>Best regards,<br><strong>Mohammed Bel Ouarraq</strong><br>Computer Science Engineering Student</p>
-            </div>
-          </div>
-        </div>
-      `,
-      text: `
-        Hello ${name},
-        
-        Thank you for reaching out! I've received your message and will get back to you as soon as possible.
-        
-        Your Message Summary:
-        Subject: ${subject}
-        Message: ${message.substring(0, 100)}${message.length > 100 ? '...' : ''}
-        
-        I typically respond within 24 hours. If you have any urgent inquiries, feel free to reach out via:
-        - Email: medbelouarraq@gmail.com
-        - Phone: +212 688 191 812
-        - LinkedIn: Mohammed Bel Ouarraq
-        
-        Best regards,
-        Mohammed Bel Ouarraq
-        Computer Science Engineering Student
-      `,
-    };
-
-    await transporter.sendMail(confirmationOptions);
-
-    return NextResponse.json(
-      { message: 'Message sent successfully!' },
-      { status: 200 }
-    );
-
-  } catch (error) {
-    console.error('Contact form error:', error);
-    return NextResponse.json(
-      { error: 'Failed to send message. Please try again later.' },
-      { status: 500 }
-    );
+    body = await request.json();
+  } catch {
+    return bad('Invalid request.');
   }
+
+  // Honeypot: real visitors never fill this hidden field. Pretend success so bots learn nothing.
+  if (typeof body.company === 'string' && body.company.trim() !== '') {
+    return NextResponse.json({ message: 'Message sent successfully!' });
+  }
+
+  const str = (v: unknown) => (typeof v === 'string' ? v : '');
+  const name = oneLine(str(body.name));
+  const email = oneLine(str(body.email));
+  const subject = oneLine(str(body.subject));
+  const message = str(body.message).trim();
+
+  if (!name || !email || !subject || !message) return bad('All fields are required.');
+  if (
+    name.length > LIMITS.name ||
+    email.length > LIMITS.email ||
+    subject.length > LIMITS.subject ||
+    message.length > LIMITS.message
+  ) {
+    return bad('One of the fields is too long.');
+  }
+  if (!EMAIL_RE.test(email)) return bad('Please enter a valid email address.');
+
+  if (rateLimited(ip)) return bad('Too many messages — please try again in a few minutes.', 429);
+
+  const mailer = getTransporter();
+  if (!mailer) {
+    console.error('Contact form: EMAIL_USER / EMAIL_PASS are not configured.');
+    return bad('The contact form is temporarily unavailable. Please email me directly.', 503);
+  }
+
+  const h = { name: escapeHtml(name), email: escapeHtml(email), subject: escapeHtml(subject), message: escapeHtml(message) };
+
+  try {
+    await mailer.sendMail({
+      from: { name: 'Portfolio Contact', address: process.env.EMAIL_USER! },
+      to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+      replyTo: { name, address: email },
+      subject: `Portfolio: ${subject}`,
+      text: `From: ${name} <${email}>\nSubject: ${subject}\n\n${message}\n\n— Sent from your portfolio contact form. Reply directly to respond.`,
+      html: `
+        <div style="font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;max-width:600px;margin:0 auto;color:#1d1d1f">
+          <div style="padding:20px 24px;background:#111114;border-radius:12px 12px 0 0">
+            <p style="margin:0;color:#8ab4ff;font-size:12px;letter-spacing:.08em;text-transform:uppercase">Portfolio contact</p>
+            <h2 style="margin:6px 0 0;color:#fff;font-size:18px">${h.subject}</h2>
+          </div>
+          <div style="padding:24px;border:1px solid #e5e5ea;border-top:0;border-radius:0 0 12px 12px">
+            <p style="margin:0 0 4px"><strong>${h.name}</strong></p>
+            <p style="margin:0 0 20px;color:#6e6e73">${h.email}</p>
+            <div style="white-space:pre-wrap;line-height:1.6">${h.message}</div>
+            <p style="margin:24px 0 0;color:#86868b;font-size:12px">Reply to this email to respond directly.</p>
+          </div>
+        </div>`,
+    });
+  } catch (error) {
+    console.error('Contact form send failed:', error);
+    return bad('Failed to send message. Please try again later.', 502);
+  }
+
+  return NextResponse.json({ message: 'Message sent successfully!' });
 }

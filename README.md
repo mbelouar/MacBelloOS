@@ -1,139 +1,62 @@
-# macOS-Style Interactive Portfolio
+# Portfolio OS
 
-A stunning, interactive portfolio website designed to look and feel like a real macOS desktop environment. Built with Next.js, TypeScript, and Framer Motion.
+The interactive, desktop-style portfolio of **Mohammed Bel Ouarraq** — DevOps & Cloud.
+Built with Next.js 16, React 19, Tailwind CSS and Framer Motion.
 
-## 🌟 Features
+## Highlights
 
-- **macOS-Inspired Design**: Authentic macOS look with glassmorphism effects, realistic shadows, and smooth animations
-- **Interactive Desktop**: Draggable and resizable windows, functional dock, and menu bar
-- **Portfolio Apps**:
-  - 👤 About Me - Personal information and system details
-  - 💼 Projects - Showcase of work with interactive cards
-  - ⚙️ Skills - Interactive skill visualization with progress bars
-  - 🏢 Experience - Timeline view of work history
-  - ✉️ Contact - Contact form and social links
-  - 🖥️ Terminal - Interactive CLI experience
-- **Responsive Design**: Works beautifully on all devices
-- **Smooth Animations**: Powered by Framer Motion for fluid interactions
-- **Modern Tech Stack**: Next.js 14, TypeScript, Tailwind CSS
+- **Desktop shell** — menu bar with working menus, draggable / resizable / zoomable windows with real focus ordering, minimize-to-Dock animation.
+- **Dock** — macOS-style magnification, launch bounce, running indicators.
+- **Spotlight** (`⌘K` / `Ctrl+K`) — search apps, projects, skills, certifications and quick actions (copy email, download résumé…). Results deep-link into apps.
+- **Apps** — About, Projects (filterable), Skills, Experience timeline, Certifications (tilt cards), Contact form, Terminal, Résumé viewer.
+- **Terminal** — `help`, `neofetch`, `open <app>`, Tab completion, ↑/↓ history, and a few easter eggs.
+- **Mobile** — home-screen app grid, full-screen apps, compact Dock.
+- **Accessible & fast** — respects reduced-motion, keyboard shortcuts everywhere, self-hosted logos, optimized images.
 
-## 🚀 Getting Started
+### Keyboard shortcuts
 
-### Prerequisites
+| Shortcut | Action |
+| --- | --- |
+| `⌘K` / `Ctrl+K` | Spotlight search |
+| `⌥1`–`⌥8` / `Alt+1`–`Alt+8` | Open an app |
+| `⌥W` / `Alt+W` | Close focused window |
+| `⌥M` / `Alt+M` | Minimize focused window |
+| `⌥L` / `Alt+L` | Lock screen |
+| `?` | Show all shortcuts |
 
-- Node.js 18+
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-
-```bash
-git clone <repository-url>
-cd Port
-```
-
-2. Install dependencies:
+## Getting started
 
 ```bash
 npm install
-# or
-yarn install
+cp env.example .env.local   # then fill in your email credentials (see CONTACT_SETUP.md)
+npm run dev                 # http://localhost:3000
 ```
 
-3. Run the development server:
+Requires Node.js 20.9+.
 
-```bash
-npm run dev
-# or
-yarn dev
+| Script | Purpose |
+| --- | --- |
+| `npm run dev` | Development server |
+| `npm run build` | Production build |
+| `npm start` | Serve the production build |
+| `npm run lint` | ESLint |
+
+## Editing content
+
+All content lives in **`src/data/portfolio.ts`** — profile, projects, skills, experience, certifications and education. The apps *and* the terminal read from it, so one edit updates everywhere.
+
+## Project structure
+
 ```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 🎨 Customization
-
-### Personal Information
-
-Update the following files with your personal information:
-
-1. **About Me App** (`src/components/apps/AboutApp.tsx`):
-
-   - Replace placeholder name, role, and bio
-   - Update system information
-   - Modify interests and hobbies
-
-2. **Projects App** (`src/components/apps/ProjectsApp.tsx`):
-
-   - Add your actual projects
-   - Update project descriptions, technologies, and links
-   - Replace placeholder images with project screenshots
-
-3. **Skills App** (`src/components/apps/SkillsApp.tsx`):
-
-   - Update skill levels and categories
-   - Add or remove technologies
-   - Modify learning goals
-
-4. **Experience App** (`src/components/apps/ExperienceApp.tsx`):
-
-   - Replace with your work experience
-   - Update company names, positions, and descriptions
-   - Modify education section
-
-5. **Contact App** (`src/components/apps/ContactApp.tsx`):
-
-   - Update contact information
-   - Replace social media links
-   - Modify availability status
-
-6. **Terminal App** (`src/components/apps/TerminalApp.tsx`):
-   - Customize command responses
-   - Add new commands if desired
-   - Update personal information in responses
-
-### Styling
-
-- **Colors**: Modify the color palette in `tailwind.config.ts`
-- **Fonts**: Update font imports in `src/app/globals.css`
-- **Animations**: Adjust animation timings in component files
-
-### App Configuration
-
-Modify `src/utils/appsConfig.ts` to:
-
-- Change app icons
-- Adjust default window sizes and positions
-- Add or remove apps
-
-## 📱 Browser Support
-
-- Chrome (recommended)
-- Firefox
-- Safari
-- Edge
-
-## 🛠️ Built With
-
-- **Framework**: Next.js 14
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **Interactions**: React Draggable, React Resizable
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
-
-## 📞 Support
-
-If you have any questions or need help customizing the portfolio, feel free to reach out!
-
----
-
-**Made with ❤️ and lots of ☕**
+src/
+  app/                 layout, page, global styles, /api/contact route
+  data/portfolio.ts    all portfolio content
+  components/
+    os/                desktop shell: Desktop, Window, Dock, MenuBar, Spotlight, LockScreen…
+    apps/              one file per app + registry.tsx (icons, sizes, ordering)
+    ui/                shared primitives (AppIcon, section headers, brand icons)
+  lib/hooks.ts         small client hooks (media queries, clock, viewport)
+public/
+  icons/               self-hosted technology logos (devicon, MIT)
+  images/              avatar and organization logos
+```

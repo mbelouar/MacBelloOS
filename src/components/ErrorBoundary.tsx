@@ -33,15 +33,16 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
       }
 
       return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">Something went wrong</h1>
-            <p className="text-slate-300 mb-4">Please refresh the page to try again.</p>
+        <div className="fixed inset-0 flex items-center justify-center bg-[#0a0a0c] p-6 text-white">
+          <div className="max-w-sm text-center">
+            <p className="text-5xl">:(</p>
+            <h1 className="mt-6 text-xl font-semibold">Something went wrong</h1>
+            <p className="mt-2 text-sm text-white/55">The desktop ran into an unexpected error. A restart usually fixes it.</p>
             <button
               onClick={() => window.location.reload()}
-              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
+              className="mt-6 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition-colors hover:bg-white/90"
             >
-              Refresh Page
+              Restart
             </button>
           </div>
         </div>
