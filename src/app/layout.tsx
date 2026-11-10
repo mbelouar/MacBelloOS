@@ -8,7 +8,7 @@ const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', displ
 export const metadata: Metadata = {
   title: 'Mohammed Belouarraq — DevOps & Cloud',
   description:
-    'Interactive desktop-style portfolio of Mohammed Belouarraq, Computer Engineering student focused on DevOps, Kubernetes and cloud infrastructure.',
+    'Interactive desktop-style portfolio of Mohammed Belouarraq, Software Engineer focused on DevOps, Kubernetes, cloud infrastructure and AI evaluation.',
   keywords: ['portfolio', 'devops', 'cloud', 'kubernetes', 'docker', 'terraform', 'computer engineering'],
   authors: [{ name: 'Mohammed Belouarraq' }],
   openGraph: {

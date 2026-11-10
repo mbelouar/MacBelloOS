@@ -8,7 +8,7 @@ Built with Next.js 16, React 19, Tailwind CSS and Framer Motion.
 - **Desktop shell** — menu bar with working menus, draggable / resizable / zoomable windows with real focus ordering, minimize-to-Dock animation.
 - **Dock** — macOS-style magnification, launch bounce, running indicators.
 - **Spotlight** (`⌘K` / `Ctrl+K`) — search apps, projects, skills, certifications and quick actions (copy email, download résumé…). Results deep-link into apps.
-- **Apps** — About, Projects (filterable), Skills, Experience timeline, Community (volunteering), Certifications (tilt cards), Contact form, Terminal, Résumé viewer.
+- **Apps** — About, Projects (filterable), Skills, Experience timeline, Community (volunteering), Journal (open source & achievements), Certifications (tilt cards), Contact form, Terminal, Résumé viewer.
 - **Terminal** — `help`, `neofetch`, `open <app>`, Tab completion, ↑/↓ history, and a few easter eggs.
 - **Mobile** — home-screen app grid, full-screen apps, compact Dock.
 - **Accessible & fast** — respects reduced-motion, keyboard shortcuts everywhere, self-hosted logos, optimized images.
@@ -18,7 +18,7 @@ Built with Next.js 16, React 19, Tailwind CSS and Framer Motion.
 | Shortcut | Action |
 | --- | --- |
 | `⌘K` / `Ctrl+K` | Spotlight search |
-| `⌥1`–`⌥9` / `Alt+1`–`Alt+9` | Open an app |
+| `⌥1`–`⌥0` / `Alt+1`–`Alt+0` | Open an app |
 | `⌥W` / `Alt+W` | Close focused window |
 | `⌥M` / `Alt+M` | Minimize focused window |
 | `⌥L` / `Alt+L` | Lock screen |
@@ -43,7 +43,7 @@ Requires Node.js 20.9+.
 
 ## Editing content
 
-All content lives in **`src/data/portfolio.ts`** — profile, projects, skills, experience, certifications and education. The apps *and* the terminal read from it, so one edit updates everywhere.
+Journal posts live in **`src/data/journal.ts`** (templates at the top of the file). All other content lives in **`src/data/portfolio.ts`** — profile, projects, skills, experience, certifications and education. The apps *and* the terminal read from it, so one edit updates everywhere.
 
 ## Project structure
 

@@ -28,7 +28,7 @@ export default function Dock({ hidden, mobile }: { hidden: boolean; mobile: bool
   const magnify = !coarse && !mobile;
   const size = mobile ? 38 : BASE;
 
-  const dockApps = APPS.filter((a) => a.id !== 'resume');
+  const dockApps = APPS.filter((a) => a.id !== 'resume' && !(mobile && a.id === 'terminal'));
   const docApps = APPS.filter((a) => a.id === 'resume');
 
   const onActivate = (app: AppDef) => {

@@ -12,6 +12,7 @@ import {
   FolderGit2,
   Lock,
   Mail,
+  NotebookPen,
   Search,
   type LucideIcon,
 } from 'lucide-react';
@@ -19,11 +20,12 @@ import { APPS } from '@/components/apps/registry';
 import AppIcon from '@/components/ui/AppIcon';
 import { GithubIcon, LinkedinIcon } from '@/components/ui/BrandIcons';
 import { certifications, certMeta, profile, projects, skillCategories } from '@/data/portfolio';
+import { journal } from '@/data/journal';
 import { useOS } from './OSContext';
 
 interface Result {
   id: string;
-  group: 'Applications' | 'Projects' | 'Skills' | 'Certifications' | 'Actions';
+  group: 'Applications' | 'Projects' | 'Journal' | 'Skills' | 'Certifications' | 'Actions';
   title: string;
   subtitle?: string;
   keywords: string;
@@ -37,7 +39,7 @@ const glyph = (Icon: LucideIcon | ((p: React.SVGProps<SVGSVGElement>) => React.R
   </span>
 );
 
-const GROUP_ORDER: Result['group'][] = ['Applications', 'Actions', 'Projects', 'Skills', 'Certifications'];
+const GROUP_ORDER: Result['group'][] = ['Applications', 'Actions', 'Projects', 'Journal', 'Skills', 'Certifications'];
 
 /** Simple scorer: prefix matches beat word matches beat substring matches. */
 function score(r: Result, q: string) {
@@ -156,6 +158,15 @@ function SpotlightPanel() {
         keywords: p.tech.join(' '),
         icon: glyph(FolderGit2, 'text-[#ffb547]'),
         run: () => os.open('projects', { project: p.id }),
+      })),
+      ...journal.map((post) => ({
+        id: `post-${post.id}`,
+        group: 'Journal' as const,
+        title: post.title,
+        subtitle: post.date.slice(0, 4),
+        keywords: `${post.summary} ${(post.tags ?? []).join(' ')}`,
+        icon: glyph(NotebookPen, 'text-[#8f9bff]'),
+        run: () => os.open('journal'),
       })),
       ...skillCategories.flatMap((c) =>
         c.skills.map((s) => ({

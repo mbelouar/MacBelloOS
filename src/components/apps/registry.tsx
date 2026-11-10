@@ -1,9 +1,10 @@
 import type { ComponentType } from 'react';
-import { BadgeCheck, Briefcase, Cpu, FileText, FolderGit2, HeartHandshake, Mail, SquareTerminal, User, type LucideIcon } from 'lucide-react';
+import { BadgeCheck, Briefcase, Cpu, FileText, FolderGit2, HeartHandshake, Mail, NotebookPen, SquareTerminal, User, type LucideIcon } from 'lucide-react';
 import type { AppId, AppParams } from '@/components/os/OSContext';
 import AboutApp from './AboutApp';
 import CertificationsApp from './CertificationsApp';
 import CommunityApp from './CommunityApp';
+import JournalApp from './JournalApp';
 import ContactApp from './ContactApp';
 import ExperienceApp from './ExperienceApp';
 import ProjectsApp from './ProjectsApp';
@@ -81,6 +82,16 @@ export const APPS: AppDef[] = [
     size: { w: 820, h: 680 },
     keywords: 'volunteering volunteer benevolat bénévolat sports club ecdh community leadership',
     component: CommunityApp,
+  },
+  {
+    id: 'journal',
+    name: 'Journal',
+    title: 'Journal',
+    icon: NotebookPen,
+    gradient: 'linear-gradient(180deg, #8f9bff 0%, #4338ca 100%)',
+    size: { w: 780, h: 700 },
+    keywords: 'posts contributions open source achievements awards hackathon milestones news blog',
+    component: JournalApp,
   },
   {
     id: 'certifications',

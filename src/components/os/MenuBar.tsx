@@ -81,7 +81,7 @@ export default function MenuBar({ onShowShortcuts }: { onShowShortcuts: () => vo
     {
       id: 'go',
       label: 'Go',
-      items: APPS.map((a, i) => ({ label: a.name, shortcut: `${alt}${i + 1}`, action: () => os.open(a.id) })),
+      items: APPS.map((a, i) => ({ label: a.name, shortcut: `${alt}${(i + 1) % 10}`, action: () => os.open(a.id) })),
     },
     {
       id: 'window',

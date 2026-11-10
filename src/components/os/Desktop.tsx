@@ -23,7 +23,7 @@ const readUnlocked = () => {
     return false;
   }
 };
-const APP_ORDER: AppId[] = ['about', 'projects', 'skills', 'experience', 'community', 'certifications', 'contact', 'terminal', 'resume'];
+const APP_ORDER: AppId[] = ['about', 'projects', 'skills', 'experience', 'community', 'journal', 'certifications', 'contact', 'terminal', 'resume'];
 
 export default function Desktop() {
   // Whether this tab was already unlocked (null during SSR/hydration, so the lock screen never flashes on reload).
@@ -153,10 +153,12 @@ function Shell() {
         return;
       }
       if (e.altKey && !e.metaKey && !e.ctrlKey) {
-        const digit = /^Digit([1-9])$/.exec(e.code);
+        const digit = /^Digit([0-9])$/.exec(e.code);
         if (digit) {
           e.preventDefault();
-          os.open(APP_ORDER[Number(digit[1]) - 1]);
+          // ⌥1…⌥9 open apps 1–9, ⌥0 opens the 10th.
+          const n = Number(digit[1]);
+          os.open(APP_ORDER[n === 0 ? 9 : n - 1]);
           return;
         }
         if (e.code === 'KeyW' && os.focusedId) {

@@ -13,6 +13,7 @@ import {
   skillLevelLabel,
   volunteering,
 } from '@/data/portfolio';
+import { journal } from '@/data/journal';
 
 type Tone = 'out' | 'cmd' | 'err' | 'dim' | 'accent' | 'ok' | 'head';
 interface Line {
@@ -28,6 +29,7 @@ const APP_ALIASES: Record<string, AppId> = {
   skills: 'skills',
   experience: 'experience',
   community: 'community',
+  journal: 'journal',
   volunteer: 'community',
   certifications: 'certifications',
   certs: 'certifications',
@@ -38,7 +40,7 @@ const APP_ALIASES: Record<string, AppId> = {
 
 const FILES = ['README.md', 'resume_en.pdf', 'cv_fr.pdf', 'contact.txt'];
 const COMMANDS = [
-  'help', 'about', 'projects', 'skills', 'experience', 'volunteer', 'certifications', 'education', 'contact',
+  'help', 'about', 'projects', 'skills', 'experience', 'volunteer', 'journal', 'certifications', 'education', 'contact',
   'open', 'neofetch', 'ls', 'cat', 'pwd', 'whoami', 'date', 'echo', 'history', 'clear', 'exit', 'sudo',
 ];
 
@@ -120,6 +122,7 @@ export default function TerminalApp() {
             ['skills', 'Technologies & proficiency'],
             ['experience', 'Work & leadership'],
             ['volunteer', 'Community & volunteering'],
+            ['journal', 'Contributions & achievements'],
             ['certifications', 'Verified credentials'],
             ['education', 'Schools & programs'],
             ['contact', 'How to reach me'],
@@ -169,6 +172,16 @@ export default function TerminalApp() {
           out.push(L(''), L(`${e.role} — ${e.company}`, 'accent'), L(`  ${e.period} · ${e.type}`, 'dim'));
           e.highlights.forEach((h) => out.push(L(`  • ${h}`)));
         });
+        break;
+      case 'journal':
+      case 'posts':
+        out = [L('Journal', 'head')];
+        [...journal]
+          .sort((a, b) => b.date.localeCompare(a.date))
+          .forEach((post) => {
+            out.push(L(''), L(`${post.date}  ${post.title}${post.badge ? `  [${post.badge}]` : ''}`, post.type === 'achievement' ? 'ok' : 'accent'), L(`  ${post.summary}`, 'dim'));
+          });
+        out.push(L(''), L('Tip: `open journal` for the full feed.', 'dim'));
         break;
       case 'volunteer':
       case 'volunteering':

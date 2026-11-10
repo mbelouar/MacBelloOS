@@ -5,7 +5,7 @@ export const profile = {
   name: 'Mohammed Belouarraq',
   shortName: 'Mohammed',
   initials: 'MB',
-  role: 'Computer Engineering Student',
+  role: 'Software Engineer',
   headline: 'DevOps & Cloud Engineer in the making',
   tagline: 'I build, ship and run cloud-native infrastructure — Kubernetes, containers, IaC and the pipelines that glue them together.',
   location: 'Casablanca, Morocco',
@@ -561,4 +561,6 @@ export const volunteering: Volunteering[] = [
 ];
 
 /** Other commitments shown on the Community timeline for context (details live in Experience). */
-export const communityContext = [{ id: 'ade', label: 'ADE — President', start: '2024-01', end: '2025-03' }];
+export const communityContext = [
+  { id: 'ade', label: 'ADE — President', start: '2024-01', end: '2025-03', logo: '/images/ade-mark.png', logoBg: '#ffffff' },
+];

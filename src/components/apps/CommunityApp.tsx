@@ -107,7 +107,7 @@ function Ribbon() {
   const { open } = useOS();
   const rows = [
     ...volunteering.map((v) => ({ id: v.id, label: STYLE[v.id]?.short || v.org, start: v.start, end: v.end, context: false, logo: v.logo, logoBg: v.logoBg })),
-    ...communityContext.map((c) => ({ ...c, context: true, logo: undefined, logoBg: undefined })),
+    ...communityContext.map((c) => ({ ...c, context: true })),
   ];
   const first = Math.min(...rows.map((r) => monthIndex(r.start)));
   const last = Math.max(...rows.map((r) => monthIndex(r.end)));
@@ -141,8 +141,12 @@ function Ribbon() {
                   {r.context ? (
                     <button
                       onClick={() => open('experience')}
-                      className="group flex items-center gap-1 truncate text-left text-xs text-ink-faint hover:text-ink-muted"
+                      className="group flex max-w-full items-center gap-2 text-left text-xs text-ink-muted hover:text-ink"
                     >
+                      {r.logo && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={r.logo} alt="" className="h-5 w-5 shrink-0 rounded-md object-contain ring-1 ring-white/10" style={{ background: r.logoBg }} />
+                      )}
                       <span className="truncate">{r.label}</span>
                       <ArrowUpRight className="h-3 w-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
                     </button>

@@ -11,6 +11,7 @@ export type AppId =
   | 'contact'
   | 'terminal'
   | 'community'
+  | 'journal'
   | 'resume';
 
 export type AppParams = Record<string, string>;
