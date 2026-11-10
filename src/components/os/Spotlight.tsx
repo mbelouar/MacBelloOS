@@ -18,7 +18,7 @@ import {
 import { APPS } from '@/components/apps/registry';
 import AppIcon from '@/components/ui/AppIcon';
 import { GithubIcon, LinkedinIcon } from '@/components/ui/BrandIcons';
-import { certifications, profile, projects, skillCategories } from '@/data/portfolio';
+import { certifications, certMeta, profile, projects, skillCategories } from '@/data/portfolio';
 import { useOS } from './OSContext';
 
 interface Result {
@@ -172,7 +172,7 @@ function SpotlightPanel() {
         id: `cert-${c.id}`,
         group: 'Certifications' as const,
         title: c.short,
-        subtitle: `${c.issuer} · ${c.issued}`,
+        subtitle: certMeta(c),
         keywords: c.name,
         icon: glyph(BadgeCheck, 'text-[#ff8ab8]'),
         run: () => os.open('certifications'),

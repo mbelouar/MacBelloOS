@@ -1,6 +1,6 @@
 # Portfolio OS
 
-The interactive, desktop-style portfolio of **Mohammed Bel Ouarraq** — DevOps & Cloud.
+The interactive, desktop-style portfolio of **Mohammed Belouarraq** — DevOps & Cloud.
 Built with Next.js 16, React 19, Tailwind CSS and Framer Motion.
 
 ## Highlights

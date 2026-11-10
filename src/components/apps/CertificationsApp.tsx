@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowUpRight, BadgeCheck } from 'lucide-react';
 import { AppHeader } from '@/components/ui/Section';
-import { certifications, type Certification } from '@/data/portfolio';
+import { certifications, certMeta, type Certification } from '@/data/portfolio';
 import { useCoarsePointer } from '@/lib/hooks';
 
 export default function CertificationsApp() {
@@ -13,7 +13,7 @@ export default function CertificationsApp() {
       <AppHeader
         eyebrow={`${certifications.length} verified credentials`}
         title="Certifications"
-        subtitle="Industry credentials across cloud infrastructure, Kubernetes and containers."
+        subtitle="Industry credentials across cloud, data, AI, Kubernetes and containers."
       />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {certifications.map((c, i) => (
@@ -98,7 +98,8 @@ function CertCard({ cert: c, index }: { cert: Certification; index: number }) {
 
         <div className="mt-5" style={{ transform: 'translateZ(20px)' }}>
           <p className="font-mono text-[11px] text-ink-faint">
-            {c.issuer} · {c.issued}
+            {certMeta(c)}
+            {c.expires && <span className="text-ink-faint/80"> · expires {c.expires}</span>}
           </p>
           <h3 className="mt-1 text-[15px] font-semibold leading-snug tracking-tight">{c.name}</h3>
           <p className="mt-2 text-[13px] leading-relaxed text-ink-muted">{c.description}</p>
@@ -112,7 +113,12 @@ function CertCard({ cert: c, index }: { cert: Certification; index: number }) {
               </span>
             ))}
           </div>
-          <span className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-accent">
+          {c.credentialId && (
+            <p className="mt-3 truncate font-mono text-[10px] text-ink-faint" title={c.credentialId}>
+              ID {c.credentialId}
+            </p>
+          )}
+          <span className={`${c.credentialId ? 'mt-2' : 'mt-4'} inline-flex items-center gap-1 text-xs font-medium text-accent`}>
             View credential
             <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </span>

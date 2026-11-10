@@ -6,13 +6,13 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swa
 const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
 
 export const metadata: Metadata = {
-  title: 'Mohammed Bel Ouarraq — DevOps & Cloud',
+  title: 'Mohammed Belouarraq — DevOps & Cloud',
   description:
-    'Interactive desktop-style portfolio of Mohammed Bel Ouarraq, Computer Engineering student focused on DevOps, Kubernetes and cloud infrastructure.',
+    'Interactive desktop-style portfolio of Mohammed Belouarraq, Computer Engineering student focused on DevOps, Kubernetes and cloud infrastructure.',
   keywords: ['portfolio', 'devops', 'cloud', 'kubernetes', 'docker', 'terraform', 'computer engineering'],
-  authors: [{ name: 'Mohammed Bel Ouarraq' }],
+  authors: [{ name: 'Mohammed Belouarraq' }],
   openGraph: {
-    title: 'Mohammed Bel Ouarraq — DevOps & Cloud',
+    title: 'Mohammed Belouarraq — DevOps & Cloud',
     description: 'Interactive desktop-style portfolio — projects, skills, certifications and more.',
     type: 'website',
   },

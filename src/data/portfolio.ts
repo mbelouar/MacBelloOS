@@ -2,7 +2,7 @@
 // Every app (and the terminal) reads from here, so edit content in one place.
 
 export const profile = {
-  name: 'Mohammed Bel Ouarraq',
+  name: 'Mohammed Belouarraq',
   shortName: 'Mohammed',
   initials: 'MB',
   role: 'Computer Engineering Student',
@@ -20,7 +20,7 @@ export const profile = {
   },
   github: 'https://github.com/mbelouar',
   githubHandle: '@mbelouar',
-  linkedin: 'https://www.linkedin.com/in/mohammed-bel-ouarraq-554057218/',
+  linkedin: 'https://www.linkedin.com/in/mohammedbelouarraq/',
   bio: [
     'DevOps & Cloud enthusiast with a strong foundation in technology and programming, developed through hands-on training and real projects.',
     'Skilled in problem-solving, teamwork and project management, and always eager to explore new tools and practices across the DevOps & Cloud ecosystem.',
@@ -272,7 +272,10 @@ export interface Certification {
   name: string;
   short: string;
   issuer: string;
-  issued: string;
+  /** Omitted when the issue date isn't published (e.g. some course certificates). */
+  issued?: string;
+  expires?: string;
+  credentialId?: string;
   description: string;
   skills: string[];
   logo: string;
@@ -282,11 +285,36 @@ export interface Certification {
 
 export const certifications: Certification[] = [
   {
+    id: 'agentic-ai',
+    name: 'Agentic AI Certified Foundations Associate',
+    short: 'Agentic AI Foundations',
+    issuer: 'Oracle',
+    issued: 'Sep 2026',
+    description: 'Foundations of AI agents: reasoning, tool use, orchestration and agentic workflows on Oracle AI services.',
+    skills: ['AI Agents', 'MCP', 'Agentic AI'],
+    logo: '/images/oracleimg1.png',
+    logoFit: 'cover',
+    url: 'https://www.linkedin.com/in/mohammedbelouarraq/details/certifications/',
+  },
+  {
+    id: 'oracle-data-platform',
+    name: 'Oracle Data Platform Certified Foundations Associate',
+    short: 'Oracle Data Platform Foundations',
+    issuer: 'Oracle',
+    issued: 'Apr 2026',
+    description: "Oracle's data platform: databases, lakehouse, analytics and data integration on OCI.",
+    skills: ['Oracle Database', 'Data Lakehouse', 'Analytics'],
+    logo: '/images/oracleimg1.png',
+    logoFit: 'cover',
+    url: 'https://www.linkedin.com/in/mohammedbelouarraq/details/certifications/',
+  },
+  {
     id: 'oci',
     name: 'Oracle Cloud Infrastructure Certified Foundations Associate',
     short: 'OCI Foundations Associate',
     issuer: 'Oracle',
     issued: 'Oct 2025',
+    expires: 'Oct 2027',
     description: 'OCI core services, security, pricing and support.',
     skills: ['Oracle Cloud', 'Cloud Computing', 'Cloud Security'],
     logo: '/images/oracleimg1.png',
@@ -299,6 +327,7 @@ export const certifications: Certification[] = [
     short: 'KCNA',
     issuer: 'The Linux Foundation',
     issued: 'Sep 2025',
+    credentialId: 'LF-069aer9w3k',
     description: 'Kubernetes fundamentals, cloud-native architecture and container orchestration.',
     skills: ['Kubernetes', 'Cloud Native', 'Orchestration'],
     logo: '/images/KCNA-Logo.png',
@@ -312,10 +341,34 @@ export const certifications: Certification[] = [
     issuer: 'Docker, Inc.',
     issued: 'Jun 2025',
     description: 'Containerization, image management and container orchestration.',
-    skills: ['Docker', 'Containerization', 'Images'],
+    skills: ['Docker', 'Containerization', 'Docker Compose'],
     logo: '/images/dock.png',
     logoFit: 'contain',
     url: 'https://shorturl.at/tA4ua',
+  },
+  {
+    id: 'lf-devops-sre',
+    name: 'Introduction to DevOps and Site Reliability Engineering',
+    short: 'Intro to DevOps & SRE',
+    issuer: 'The Linux Foundation',
+    credentialId: 'f4787d36-a305-40c5-97ce-5590d660c35d',
+    description: 'DevOps culture, CI/CD, infrastructure as code, observability and SRE practices.',
+    skills: ['DevOps', 'SRE', 'Kubernetes'],
+    logo: '/images/linux-foundation.svg',
+    logoFit: 'cover',
+    url: 'https://www.linkedin.com/in/mohammedbelouarraq/details/certifications/',
+  },
+  {
+    id: 'lf-kcne',
+    name: 'Kubernetes and Cloud Native Essentials',
+    short: 'Kubernetes & Cloud Native Essentials',
+    issuer: 'The Linux Foundation',
+    credentialId: 'd7ce7da9-a17a-4974-9f53-1c20d2b01e71',
+    description: 'Cloud-native fundamentals: containers, Kubernetes architecture, orchestration and the CNCF ecosystem.',
+    skills: ['Kubernetes', 'Cloud Native', 'Containers'],
+    logo: '/images/linux-foundation.svg',
+    logoFit: 'cover',
+    url: 'https://www.linkedin.com/in/mohammedbelouarraq/details/certifications/',
   },
 ];
 
@@ -340,3 +393,6 @@ export const education = [
 
 export const skillLevelLabel = (level: number) =>
   level >= 90 ? 'Expert' : level >= 80 ? 'Advanced' : 'Proficient';
+
+/** "Issuer · Mon YYYY" — skips the date when it isn't published. */
+export const certMeta = (c: Certification) => [c.issuer, c.issued].filter(Boolean).join(' · ');

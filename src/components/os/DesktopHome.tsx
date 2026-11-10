@@ -42,7 +42,7 @@ function WideHome() {
           >
             <span className="text-gradient">Mohammed</span>
             <br />
-            <span className="text-shine">Bel Ouarraq</span>
+            <span className="text-shine">Belouarraq</span>
           </motion.h1>
           <motion.p {...enter(0.28)} className="mt-6 max-w-[520px] text-[17px] leading-relaxed text-white/60">
             {profile.tagline}
@@ -97,12 +97,17 @@ function WideHome() {
             <p className="mt-4 text-[34px] font-semibold leading-none tracking-tight">{certifications.length}</p>
             <p className="mt-1 text-[13px] text-white/55">Certifications</p>
             <div className="mt-3 flex -space-x-2">
-              {certifications.map((c) => (
+              {certifications.slice(0, 4).map((c) => (
                 <span key={c.id} className="h-7 w-7 overflow-hidden rounded-full bg-white ring-2 ring-[#1d1d22]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={c.logo} alt="" className={`h-full w-full ${c.logoFit === 'cover' ? 'object-cover' : 'object-contain p-0.5'}`} />
                 </span>
               ))}
+              {certifications.length > 4 && (
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#2c2c33] text-[10px] font-semibold text-white/80 ring-2 ring-[#1d1d22]">
+                  +{certifications.length - 4}
+                </span>
+              )}
             </div>
           </motion.button>
           <motion.button {...enter(0.72)} onClick={() => open('resume')} className="widget group p-5 text-left">
@@ -154,7 +159,7 @@ function MobileHome() {
       <motion.h1 {...enter(0.12)} className="mt-3 text-[40px] font-semibold leading-[1] tracking-[-0.04em]">
         <span className="text-gradient">Mohammed</span>
         <br />
-        <span className="text-shine">Bel Ouarraq</span>
+        <span className="text-shine">Belouarraq</span>
       </motion.h1>
       <motion.p {...enter(0.2)} className="mt-4 text-[15px] leading-relaxed text-white/60">
         {profile.headline}

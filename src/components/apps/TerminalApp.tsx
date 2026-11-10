@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useOS, type AppId } from '@/components/os/OSContext';
 import {
   certifications,
+  certMeta,
   education,
   experiences,
   profile,
@@ -59,7 +60,7 @@ function neofetch(): Line[] {
     L(`Role     ${profile.role}`),
     L(`Focus    DevOps · Cloud · Kubernetes`),
     L(`Stack    ${skills}`),
-    L(`Certs    ${certifications.map((c) => c.short).join(', ')}`),
+    L(`Certs    ${certifications.length} — ${certifications.slice(0, 3).map((c) => c.short).join(', ')}…`),
     L(`Locale   ${profile.location}`),
     L(`Status   ${profile.availability}`, 'ok'),
   ];
@@ -168,7 +169,7 @@ export default function TerminalApp() {
       case 'certs':
         out = [L('Certifications', 'head')];
         certifications.forEach((c) => {
-          out.push(L(''), L(`✔ ${c.name}`, 'ok'), L(`  ${c.issuer} · ${c.issued}`, 'dim'));
+          out.push(L(''), L(`✔ ${c.name}`, 'ok'), L(`  ${certMeta(c)}${c.credentialId ? ` · ID ${c.credentialId}` : ''}`, 'dim'));
         });
         break;
       case 'education':
