@@ -28,7 +28,7 @@ export const profile = {
   focus: ['Kubernetes', 'CI/CD & GitOps', 'Infrastructure as Code', 'Observability', 'Cloud Security'],
 };
 
-export type ProjectCategory = 'devops' | 'fullstack';
+export type ProjectCategory = 'devops' | 'fullstack' | 'data' | 'systems';
 
 export interface Project {
   id: string;
@@ -40,46 +40,86 @@ export interface Project {
   type: string;
   category: ProjectCategory;
   github: string;
+  /** Live deployment, when there is one. */
+  demo?: string;
   featured?: boolean;
 }
+
+const gh = (repo: string) => `https://github.com/mbelouar/${repo}`;
 
 export const projects: Project[] = [
   {
     id: 'secureauth',
     name: 'SecureAuth',
-    subtitle: 'Identity & Access Management platform',
+    subtitle: 'Enterprise authentication portal',
     description:
-      'Designed and implemented an IAM platform supporting SSO, MFA (TOTP, WebAuthn/FIDO) and identity lifecycle management, deployed with Kubernetes (Minikube, K3s), Docker and Helm for scalability and resilience.',
-    tech: ['Kubernetes', 'Docker', 'Helm', 'k3s', 'Terraform', 'Prometheus', 'Grafana', 'ArgoCD', 'CI/CD', 'Django', 'REST API'],
+      'Built during my E2IP internship: single sign-on with Active Directory Federation Services over SAML 2.0, multi-factor authentication with WebAuthn/FIDO2 security keys, TOTP apps and backup codes, plus audit logging, session security and Google Workspace integrations — containerized with Docker.',
+    tech: ['Django', 'ADFS', 'SAML 2.0', 'WebAuthn / FIDO2', 'TOTP', 'PostgreSQL', 'Docker', 'GitHub Actions'],
     year: '2025',
-    type: 'Final Year Project',
-    category: 'devops',
-    github: 'https://github.com/mbelouar/SecureAuth',
+    type: 'Internship · E2IP Technologies',
+    category: 'fullstack',
+    github: gh('E2IP-SECUREAUTH'),
     featured: true,
   },
   {
+    id: 'smartbin',
+    name: 'SmartBin',
+    subtitle: 'IoT waste-management platform',
+    description:
+      'Microservices system for smart waste management: NFC tap-to-open bins, MQTT sensor integration, real-time fill-level monitoring, AI waste classification, a live bin map, recycling gamification and an admin dashboard — behind an API gateway.',
+    tech: ['Next.js', 'TypeScript', 'Django REST', 'Microservices', 'MQTT', 'NFC', 'MySQL', 'Docker Compose'],
+    year: '2025',
+    type: 'Academic Project',
+    category: 'fullstack',
+    github: gh('SmartBin'),
+  },
+  {
     id: 'iot',
-    name: 'IoT',
+    name: 'Inception of Things',
     subtitle: 'Lightweight Kubernetes orchestration',
     description:
       'Container orchestration using K3s with Vagrant and K3D with ArgoCD — creating and managing lightweight clusters across environments, from multi-node setups to GitOps-driven CI/CD pipelines.',
-    tech: ['Kubernetes', 'k3s', 'k3d', 'Vagrant', 'Docker', 'ArgoCD', 'CI/CD', 'Scripting'],
+    tech: ['Kubernetes', 'k3s', 'k3d', 'Vagrant', 'ArgoCD', 'GitOps', 'CI/CD', 'Bash'],
     year: '2024',
     type: 'Academic Project',
     category: 'devops',
-    github: 'https://github.com/mbelouar/IoT-K8s-Orchestration',
+    github: gh('Inception-of-Things'),
   },
   {
-    id: 'transendence',
-    name: 'Transendence',
-    subtitle: 'Multiplayer gaming platform',
+    id: 'greencity',
+    name: 'GreenCity Analytics',
+    subtitle: 'Energy business-intelligence platform',
     description:
-      'A web platform for multiplayer games with user management, blockchain score storage and AI opponents. Hardened with two-factor authentication and GDPR compliance.',
-    tech: ['Django', 'JavaScript', 'ThreeJS', 'PostgreSQL', 'Docker', 'Microservices', 'CI/CD', 'Bootstrap'],
+      'BI project for a multi-site energy operator: ETL pipelines consolidating MySQL, JSON and CSV sources into a data warehouse with three data marts, then Power BI dashboards on consumption, profitability and environmental impact.',
+    tech: ['Python', 'Pentaho', 'ETL', 'MySQL', 'Data Warehouse', 'Power BI'],
+    year: '2026',
+    type: 'Academic Project',
+    category: 'data',
+    github: gh('GreenCity_Analytics'),
+  },
+  {
+    id: 'flight-search',
+    name: 'Flight Search Engine',
+    subtitle: 'Real-time flight search',
+    description:
+      'Full-stack flight search with a .NET 10 Web API and a Next.js front end, pulling live flight offers from the Amadeus API, with a documented Swagger API and one-command setup.',
+    tech: ['.NET 10', 'C#', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Amadeus API', 'REST'],
+    year: '2026',
+    type: 'Academic Project',
+    category: 'fullstack',
+    github: gh('WebServices'),
+  },
+  {
+    id: 'transcendence',
+    name: 'ft_transcendence',
+    subtitle: 'CloudPong — multiplayer gaming platform',
+    description:
+      'Team project: real-time multiplayer Pong with an AI opponent and live chat over Django Channels WebSockets, user management, blockchain score storage, two-factor authentication and GDPR compliance, running as Dockerized microservices.',
+    tech: ['Django Channels', 'WebSockets', 'JavaScript', 'ThreeJS', 'PostgreSQL', 'Docker', 'Microservices', 'CI/CD'],
     year: '2024',
     type: 'Academic Project',
     category: 'fullstack',
-    github: 'https://github.com/mbelouar/Transendence',
+    github: gh('ft_transcendence'),
   },
   {
     id: 'inception',
@@ -91,23 +131,59 @@ export const projects: Project[] = [
     year: '2023',
     type: 'Academic Project',
     category: 'devops',
-    github: 'https://github.com/mbelouar/Inception',
+    github: gh('Inception'),
   },
   {
-    id: 'nesttools',
-    name: 'NestTools',
+    id: 'ft-irc',
+    name: 'ft_irc',
+    subtitle: 'IRC server in C++',
+    description:
+      'An RFC 2812–compliant IRC server written from scratch in C++ with non-blocking sockets — channels, operators, modes and private messaging, usable with real IRC clients. Graded 115/100.',
+    tech: ['C++', 'Sockets', 'poll()', 'Networking', 'RFC 2812'],
+    year: '2024',
+    type: 'Team Project · 1337',
+    category: 'systems',
+    github: gh('FT_IRC'),
+  },
+  {
+    id: 'cub3d',
+    name: 'cub3D',
+    subtitle: 'Raycasting 3D engine',
+    description:
+      'A Wolfenstein 3D–inspired first-person engine in C: raycasting, textured walls, map parsing from text files and smooth player movement on MiniLibX.',
+    tech: ['C', 'Raycasting', 'MiniLibX', 'Graphics'],
+    year: '2023',
+    type: 'Academic Project · 1337',
+    category: 'systems',
+    github: gh('cub3D'),
+  },
+  {
+    id: 'toolnest',
+    name: 'ToolNest',
     subtitle: 'Community tool-rental platform',
     description:
       'A full-stack app connecting DIY enthusiasts with local tool owners so they can rent equipment for a fraction of the purchase cost — promoting affordable, sustainable access.',
     tech: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Laravel', 'Docker Compose'],
     year: '2023',
-    type: 'Academic Project',
+    type: 'Team Project',
     category: 'fullstack',
-    github: 'https://github.com/mbelouar/NestTools',
+    github: gh('ToolNest'),
+  },
+  {
+    id: 'portfolio-os',
+    name: 'Portfolio OS',
+    subtitle: 'This site',
+    description:
+      'The desktop-style portfolio you are using: a window manager with focus ordering, a magnifying dock, Spotlight search, a working terminal and a mobile home screen — fully keyboard-driven.',
+    tech: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    year: '2026',
+    type: 'Personal Project',
+    category: 'fullstack',
+    github: gh('MacBelloOS'),
+    demo: 'https://mac-bello-os.vercel.app',
   },
 ];
 
-// Logos from devicon (MIT), self-hosted in /public/icons for speed and reliability.
 const devicon = (path: string) => `/icons/${path.split('/').pop()}`;
 /** Custom icons (Lucide paths, ISC) for skills that have no official logo. */
 const localIcon = (file: string) => `/icons/${file}`;

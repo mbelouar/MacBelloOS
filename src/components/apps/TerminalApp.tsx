@@ -145,9 +145,10 @@ export default function TerminalApp() {
         break;
       case 'projects':
         out = [L('Projects', 'head'), L('')];
+        const nameWidth = Math.max(...projects.map((p) => p.name.length)) + 2;
         projects.forEach((p) => {
-          out.push(L(`  ${pad(p.name, 16)}${p.year}  ${p.subtitle}`, p.featured ? 'accent' : 'out'));
-          out.push(L(`  ${' '.repeat(22)}${p.tech.slice(0, 5).join(', ')}`, 'dim'));
+          out.push(L(`  ${pad(p.name, nameWidth)}${p.year}  ${p.subtitle}`, p.featured ? 'accent' : 'out'));
+          out.push(L(`  ${' '.repeat(nameWidth + 6)}${p.tech.slice(0, 5).join(', ')}`, 'dim'));
         });
         out.push(L(''), L('Tip: `open projects` for the full view.', 'dim'));
         break;

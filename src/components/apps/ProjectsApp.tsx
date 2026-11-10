@@ -15,6 +15,8 @@ const filters: { value: Filter; label: string }[] = [
   { value: 'all', label: 'All' },
   { value: 'devops', label: 'Cloud & DevOps' },
   { value: 'fullstack', label: 'Full-stack' },
+  { value: 'data', label: 'Data' },
+  { value: 'systems', label: 'Systems' },
 ];
 
 export default function ProjectsApp({ params, paramsKey }: AppProps) {
@@ -56,7 +58,9 @@ export default function ProjectsApp({ params, paramsKey }: AppProps) {
         title="Projects"
         subtitle="Infrastructure, platforms and products I've designed, built and shipped."
       >
-        <Segmented value={filter} options={filters} onChange={setFilter} />
+        <div className="scrollbar-none -mx-1 max-w-full overflow-x-auto px-1">
+          <Segmented value={filter} options={filters} onChange={setFilter} />
+        </div>
       </AppHeader>
 
       <motion.div layout className="grid gap-3 md:grid-cols-2">
@@ -136,17 +140,31 @@ function ProjectCard({
           <h3 className={`font-semibold tracking-tight ${p.featured ? 'text-2xl' : 'text-lg'}`}>{p.name}</h3>
           <p className="mt-0.5 text-sm text-ink-muted">{p.subtitle}</p>
         </div>
-        <a
-          href={p.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${p.name} source code on GitHub`}
-          className="flex h-9 shrink-0 items-center gap-1.5 rounded-lg bg-white/[0.06] px-3 text-xs font-medium text-ink-muted shadow-card transition-colors hover:bg-white/[0.12] hover:text-ink"
-        >
-          <GithubIcon className="h-3.5 w-3.5" />
-          Code
-          <ArrowUpRight className="h-3 w-3" />
-        </a>
+        <div className="flex shrink-0 gap-1.5">
+          {p.demo && (
+            <a
+              href={p.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${p.name} live demo`}
+              className="flex h-9 items-center gap-1.5 rounded-lg bg-white px-3 text-xs font-medium text-black transition-colors hover:bg-white/90"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-ok" />
+              Live
+            </a>
+          )}
+          <a
+            href={p.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${p.name} source code on GitHub`}
+            className="flex h-9 items-center gap-1.5 rounded-lg bg-white/[0.06] px-3 text-xs font-medium text-ink-muted shadow-card transition-colors hover:bg-white/[0.12] hover:text-ink"
+          >
+            <GithubIcon className="h-3.5 w-3.5" />
+            Code
+            <ArrowUpRight className="h-3 w-3" />
+          </a>
+        </div>
       </div>
 
       <p className={`mt-3 text-[13.5px] leading-relaxed text-ink-muted ${p.featured ? 'max-w-3xl' : ''}`}>
