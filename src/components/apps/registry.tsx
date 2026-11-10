@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import { BadgeCheck, Briefcase, Cpu, FileText, FolderGit2, HeartHandshake, Mail, NotebookPen, SquareTerminal, User, type LucideIcon } from 'lucide-react';
+import { Award, BriefcaseBusiness, Cpu, FileText, FolderCode, Mail, NotebookText, SquareTerminal, User, Users, type LucideIcon } from 'lucide-react';
 import type { AppId, AppParams } from '@/components/os/OSContext';
 import AboutApp from './AboutApp';
 import CertificationsApp from './CertificationsApp';
@@ -23,8 +23,10 @@ export interface AppDef {
   /** Title shown in the window chrome. */
   title: string;
   icon: LucideIcon;
-  /** Signature color used by the graphite-glass icon. */
-  accent: string;
+  /** Icon gradient [top, bottom]. */
+  tint: readonly [string, string];
+  /** Symbol color, when not white. */
+  glyph?: string;
   size: { w: number; h: number };
   /** Content manages its own padding/scrolling (terminal, PDF viewer). */
   bare?: boolean;
@@ -38,7 +40,7 @@ export const APPS: AppDef[] = [
     name: 'About Me',
     title: 'About Me',
     icon: User,
-    accent: '#7aa7ff',
+    tint: ['#9ab9ff', '#3d6df0'],
     size: { w: 760, h: 640 },
     keywords: 'profile bio who intro education languages',
     component: AboutApp,
@@ -47,8 +49,8 @@ export const APPS: AppDef[] = [
     id: 'projects',
     name: 'Projects',
     title: 'Projects',
-    icon: FolderGit2,
-    accent: '#ffb547',
+    icon: FolderCode,
+    tint: ['#ffd38c', '#ef8f2c'],
     size: { w: 900, h: 660 },
     keywords: 'work portfolio github code repos',
     component: ProjectsApp,
@@ -58,7 +60,7 @@ export const APPS: AppDef[] = [
     name: 'Skills',
     title: 'Skills',
     icon: Cpu,
-    accent: '#b79bff',
+    tint: ['#c9aaff', '#7445ee'],
     size: { w: 880, h: 640 },
     keywords: 'stack technologies tools languages kubernetes docker',
     component: SkillsApp,
@@ -67,8 +69,8 @@ export const APPS: AppDef[] = [
     id: 'experience',
     name: 'Experience',
     title: 'Experience',
-    icon: Briefcase,
-    accent: '#4fe0b0',
+    icon: BriefcaseBusiness,
+    tint: ['#92e3bb', '#2f9466'],
     size: { w: 780, h: 640 },
     keywords: 'work internships jobs career leadership',
     component: ExperienceApp,
@@ -77,8 +79,8 @@ export const APPS: AppDef[] = [
     id: 'community',
     name: 'Community',
     title: 'Community',
-    icon: HeartHandshake,
-    accent: '#ff8a6b',
+    icon: Users,
+    tint: ['#ffb398', '#de5c45'],
     size: { w: 820, h: 680 },
     keywords: 'volunteering volunteer benevolat bénévolat sports club ecdh community leadership',
     component: CommunityApp,
@@ -87,8 +89,8 @@ export const APPS: AppDef[] = [
     id: 'journal',
     name: 'Journal',
     title: 'Journal',
-    icon: NotebookPen,
-    accent: '#ff8ab8',
+    icon: NotebookText,
+    tint: ['#aab2ff', '#5548dc'],
     size: { w: 780, h: 700 },
     keywords: 'posts contributions open source achievements awards hackathon milestones news blog',
     component: JournalApp,
@@ -97,8 +99,8 @@ export const APPS: AppDef[] = [
     id: 'certifications',
     name: 'Certifications',
     title: 'Certifications',
-    icon: BadgeCheck,
-    accent: '#f5c542',
+    icon: Award,
+    tint: ['#ffb6d3', '#d4477c'],
     size: { w: 880, h: 600 },
     keywords: 'certs badges credly kcna oracle docker',
     component: CertificationsApp,
@@ -108,7 +110,7 @@ export const APPS: AppDef[] = [
     name: 'Contact',
     title: 'Contact',
     icon: Mail,
-    accent: '#5fd0ff',
+    tint: ['#a6dcff', '#2f7de4'],
     size: { w: 880, h: 640 },
     keywords: 'email message hire reach phone linkedin',
     component: ContactApp,
@@ -118,7 +120,8 @@ export const APPS: AppDef[] = [
     name: 'Terminal',
     title: 'mohammed — zsh',
     icon: SquareTerminal,
-    accent: '#56d364',
+    tint: ['#6a6a72', '#1b1b1f'],
+    glyph: '#5be08b',
     size: { w: 720, h: 480 },
     bare: true,
     keywords: 'shell cli console command',
@@ -129,7 +132,8 @@ export const APPS: AppDef[] = [
     name: 'Résumé',
     title: 'Résumé',
     icon: FileText,
-    accent: '#ff6b5e',
+    tint: ['#ffffff', '#dedee3'],
+    glyph: '#ee4b3e',
     size: { w: 760, h: 820 },
     bare: true,
     keywords: 'cv resume pdf download',

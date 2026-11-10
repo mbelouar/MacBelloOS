@@ -80,7 +80,7 @@ function SpotlightPanel() {
         title: a.name,
         subtitle: 'Application',
         keywords: a.keywords,
-        icon: <AppIcon icon={a.icon} accent={a.accent} size={28} />,
+        icon: <AppIcon icon={a.icon} tint={a.tint} glyph={a.glyph} size={28} />,
         run: () => os.open(a.id),
       })),
       {

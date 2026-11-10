@@ -176,7 +176,7 @@ function MobileHome() {
             onClick={() => open(a.id)}
             className="flex flex-col items-center gap-1.5"
           >
-            <AppIcon icon={a.icon} accent={a.accent} size={58} />
+            <AppIcon icon={a.icon} tint={a.tint} glyph={a.glyph} size={58} />
             <span className="max-w-full truncate text-[11px] font-medium text-white/85">{a.name}</span>
           </motion.button>
         ))}

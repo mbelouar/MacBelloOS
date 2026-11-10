@@ -65,7 +65,7 @@ export default function Dock({ hidden, mobile }: { hidden: boolean; mobile: bool
             bounceKey={launchTick?.id === app.id ? launchTick.n : 0}
             onClick={() => onActivate(app)}
           >
-            {(s) => <AppIcon icon={app.icon} accent={app.accent} size={s} />}
+            {(s) => <AppIcon icon={app.icon} tint={app.tint} glyph={app.glyph} size={s} />}
           </DockItem>
         ))}
 
@@ -85,14 +85,14 @@ export default function Dock({ hidden, mobile }: { hidden: boolean; mobile: bool
             bounceKey={launchTick?.id === app.id ? launchTick.n : 0}
             onClick={() => onActivate(app)}
           >
-            {(s) => <AppIcon icon={app.icon} accent={app.accent} size={s} />}
+            {(s) => <AppIcon icon={app.icon} tint={app.tint} glyph={app.glyph} size={s} />}
           </DockItem>
         ))}
         <DockItem id="github" label="GitHub ↗" mouseX={mouseX} base={size} magnify={magnify} href={profile.github}>
-          {(s) => <AppIcon icon={GithubIcon} accent="#c9d1d9" filled size={s} />}
+          {(s) => <AppIcon icon={GithubIcon} tint={['#4a4f58', '#16191e']} filled size={s} />}
         </DockItem>
         <DockItem id="linkedin" label="LinkedIn ↗" mouseX={mouseX} base={size} magnify={magnify} href={profile.linkedin}>
-          {(s) => <AppIcon icon={LinkedinIcon} accent="#3b8eea" filled size={s} />}
+          {(s) => <AppIcon icon={LinkedinIcon} tint={['#4fa3ff', '#0a5fc2']} filled size={s} />}
         </DockItem>
           </>
         )}

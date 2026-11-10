@@ -182,7 +182,7 @@ export default function Window({ win, def, focused, viewport, mobile }: WindowPr
             )}
           </div>
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center gap-2 px-24">
-            <AppIcon icon={def.icon} accent={def.accent} size={16} />
+            <AppIcon icon={def.icon} tint={def.tint} glyph={def.glyph} size={16} />
             <span className={`truncate text-[13px] font-medium transition-colors ${focused ? 'text-ink/85' : 'text-ink/40'}`}>
               {def.title}
             </span>
