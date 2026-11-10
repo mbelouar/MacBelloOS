@@ -7,14 +7,21 @@ import { useOS } from '@/components/os/OSContext';
 import { GithubIcon, LinkedinIcon } from '@/components/ui/BrandIcons';
 import { AppHeader } from '@/components/ui/Section';
 import { profile } from '@/data/portfolio';
+import type { AppProps } from './registry';
 
 const LIMITS = { name: 100, email: 200, subject: 150, message: 5000 };
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
-export default function ContactApp() {
+export default function ContactApp({ params, paramsKey = 0 }: AppProps) {
   const { notify } = useOS();
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '', company: '' });
+  const [form, setForm] = useState({ name: '', email: '', subject: params?.subject ?? '', message: '', company: '' });
+  // Opened again with a subject (e.g. "Ask me about it" on a project): prefill it.
+  const [seenKey, setSeenKey] = useState(paramsKey);
+  if (paramsKey !== seenKey) {
+    setSeenKey(paramsKey);
+    if (params?.subject) setForm((f) => ({ ...f, subject: params.subject }));
+  }
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);

@@ -14,9 +14,15 @@ export default function Home() {
         <ul>
           {projects.map((p) => (
             <li key={p.id}>
-              <a href={p.github}>
-                {p.name}: {p.subtitle}
-              </a>
+              {p.github ? (
+                <a href={p.github}>
+                  {p.name}: {p.subtitle}
+                </a>
+              ) : (
+                <span>
+                  {p.name}: {p.subtitle}
+                </span>
+              )}
             </li>
           ))}
         </ul>
