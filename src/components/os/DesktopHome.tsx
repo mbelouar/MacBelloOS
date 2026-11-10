@@ -108,7 +108,7 @@ function WideHome() {
           <motion.button {...enter(0.72)} onClick={() => open('resume')} className="widget group p-5 text-left">
             <FileText className="h-5 w-5 text-[#ff6b5e]" />
             <p className="mt-4 text-[17px] font-semibold leading-tight tracking-tight">Résumé</p>
-            <p className="mt-1 text-[13px] text-white/55">One page, PDF</p>
+            <p className="mt-1 text-[13px] text-white/55">English · Français</p>
             <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-accent">
               Open <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
             </span>

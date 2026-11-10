@@ -32,7 +32,7 @@ const APP_ALIASES: Record<string, AppId> = {
   cv: 'resume',
 };
 
-const FILES = ['README.md', 'resume.pdf', 'contact.txt'];
+const FILES = ['README.md', 'resume_en.pdf', 'cv_fr.pdf', 'contact.txt'];
 const COMMANDS = [
   'help', 'about', 'projects', 'skills', 'experience', 'certifications', 'education', 'contact',
   'open', 'neofetch', 'ls', 'cat', 'pwd', 'whoami', 'date', 'echo', 'history', 'clear', 'exit', 'sudo',
@@ -221,8 +221,8 @@ export default function TerminalApp() {
             L('- Option/Alt + 1…8 opens apps, Esc closes overlays'),
           ];
         else if (file === 'contact.txt') out = [L(profile.email), L(profile.phone)];
-        else if (file === 'resume.pdf') {
-          open('resume');
+        else if (file === 'resume_en.pdf' || file === 'cv_fr.pdf' || file === 'resume.pdf') {
+          open('resume', { lang: file === 'cv_fr.pdf' ? 'fr' : 'en' });
           out = [L('Binary file — opening in Preview…', 'dim')];
         } else out = [L(`cat: ${args[0]}: No such file or directory`, 'err')];
         break;

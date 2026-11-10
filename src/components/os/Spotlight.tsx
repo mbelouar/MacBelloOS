@@ -8,7 +8,7 @@ import {
   Copy,
   CornerDownLeft,
   Cpu,
-  Download,
+  FileText,
   FolderGit2,
   Lock,
   Mail,
@@ -84,11 +84,20 @@ function SpotlightPanel() {
       {
         id: 'act-cv',
         group: 'Actions',
-        title: 'Download Résumé',
+        title: 'Résumé (English)',
         subtitle: 'PDF',
-        keywords: 'cv resume download pdf',
-        icon: glyph(Download),
-        run: () => window.open(profile.cv, '_blank', 'noopener'),
+        keywords: 'cv resume pdf download english en',
+        icon: glyph(FileText),
+        run: () => os.open('resume', { lang: 'en' }),
+      },
+      {
+        id: 'act-cv-fr',
+        group: 'Actions',
+        title: 'CV (Français)',
+        subtitle: 'PDF',
+        keywords: 'cv resume pdf download french francais fr',
+        icon: glyph(FileText),
+        run: () => os.open('resume', { lang: 'fr' }),
       },
       {
         id: 'act-email',
@@ -174,7 +183,7 @@ function SpotlightPanel() {
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return all.filter((r) => r.group === 'Applications' || r.id === 'act-cv' || r.id === 'act-email');
+    if (!q) return all.filter((r) => r.group === 'Applications' || r.id === 'act-cv' || r.id === 'act-cv-fr' || r.id === 'act-email');
     const ranked = all
       .map((r) => ({ r, s: score(r, q) }))
       .filter((x) => x.s > 0)
@@ -293,7 +302,7 @@ function SpotlightPanel() {
                     </span>
                   )}
                   {isActive &&
-                    (r.id.startsWith('act-github') || r.id.startsWith('act-linkedin') || r.id === 'act-cv' ? (
+                    (r.id.startsWith('act-github') || r.id.startsWith('act-linkedin') ? (
                       <ArrowUpRight className="h-4 w-4 shrink-0 text-white/80" />
                     ) : (
                       <CornerDownLeft className="h-4 w-4 shrink-0 text-white/80" />

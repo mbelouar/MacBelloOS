@@ -14,7 +14,10 @@ export const profile = {
   email: 'medbelouarraq@gmail.com',
   phone: '+212 688 191 812',
   photo: '/images/avatar.jpg',
-  cv: '/Belouarraq_CV.pdf',
+  cv: {
+    en: { label: 'English', file: '/CV_Mohammed_Belouarraq_EN.pdf' },
+    fr: { label: 'Français', file: '/CV_Mohammed_Belouarraq_FR.pdf' },
+  },
   github: 'https://github.com/mbelouar',
   githubHandle: '@mbelouar',
   linkedin: 'https://www.linkedin.com/in/mohammed-bel-ouarraq-554057218/',
@@ -182,9 +185,29 @@ export interface Experience {
   highlights: string[];
   tech: string[];
   logo: string;
+  /** Logos that are full-bleed squares (fill the tile instead of being padded). */
+  logoCover?: boolean;
 }
 
 export const experiences: Experience[] = [
+  {
+    id: 'oracle',
+    company: 'Oracle',
+    role: 'Research Assistant',
+    period: 'Apr 2026 — Oct 2026',
+    type: 'R&D',
+    description:
+      'APEXLang engineering and generative-AI evaluation in Casablanca: benchmarking LLM-generated Oracle APEX applications and keeping the APEXLang skill release-ready.',
+    highlights: [
+      'Benchmarked Codex/LLM-generated Oracle APEX applications across 7 reusable test fixtures',
+      'Maintained the APEXLang skill and caught bugs in generated apps before release',
+      'Implemented deterministic scoring across 4 dimensions for consistent evaluations',
+      'Sped up evaluations with parallel, isolated runs, timeouts, token/trace dashboards and batch reports for risk-based release decisions',
+    ],
+    tech: ['Oracle APEX', 'APEXLang', 'GenAI Evaluation', 'Codex / LLMs', 'JavaScript', 'PL/SQL'],
+    logo: '/images/oracleimg1.png',
+    logoCover: true,
+  },
   {
     id: 'e2ip',
     company: 'E2IP Technologies',

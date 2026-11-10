@@ -20,7 +20,8 @@ export default function Home() {
             </li>
           ))}
         </ul>
-        <a href={profile.github}>GitHub</a> <a href={profile.linkedin}>LinkedIn</a> <a href={profile.cv}>Résumé (PDF)</a>
+        <a href={profile.github}>GitHub</a> <a href={profile.linkedin}>LinkedIn</a> <a href={profile.cv.en.file}>Résumé (English, PDF)</a>{' '}
+        <a href={profile.cv.fr.file}>CV (Français, PDF)</a>
       </div>
       <ErrorBoundary>
         <Desktop />

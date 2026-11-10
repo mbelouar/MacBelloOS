@@ -106,7 +106,7 @@ export const APPS: AppDef[] = [
   {
     id: 'resume',
     name: 'Résumé',
-    title: 'Belouarraq_CV.pdf',
+    title: 'Résumé',
     icon: FileText,
     gradient: 'linear-gradient(180deg, #ffffff 0%, #d9d9de 100%)',
     glyph: 'text-[#ff453a]',

@@ -24,9 +24,13 @@ export default function ExperienceApp() {
             transition={{ duration: 0.5, delay: i * 0.08, ease: [0.32, 0.72, 0, 1] }}
             className="relative flex gap-4 pb-4 last:pb-0 sm:gap-5"
           >
-            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white p-2 shadow-[0_8px_20px_-8px_rgb(0_0_0/0.8)] ring-4 ring-[#17171b]">
+            <div
+              className={`relative z-10 flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-[0_8px_20px_-8px_rgb(0_0_0/0.8)] ring-4 ring-[#17171b] ${
+                e.logoCover ? '' : 'p-2'
+              }`}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={e.logo} alt="" className="h-full w-full object-contain" />
+              <img src={e.logo} alt={`${e.company} logo`} className={`h-full w-full ${e.logoCover ? 'object-cover' : 'object-contain'}`} />
             </div>
 
             <article onPointerMove={trackPointer} className="card spotlight min-w-0 flex-1 p-5">
