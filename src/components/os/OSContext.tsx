@@ -10,6 +10,7 @@ export type AppId =
   | 'certifications'
   | 'contact'
   | 'terminal'
+  | 'community'
   | 'resume';
 
 export type AppParams = Record<string, string>;

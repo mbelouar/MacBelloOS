@@ -1,8 +1,9 @@
 import type { ComponentType } from 'react';
-import { BadgeCheck, Briefcase, Cpu, FileText, FolderGit2, Mail, SquareTerminal, User, type LucideIcon } from 'lucide-react';
+import { BadgeCheck, Briefcase, Cpu, FileText, FolderGit2, HeartHandshake, Mail, SquareTerminal, User, type LucideIcon } from 'lucide-react';
 import type { AppId, AppParams } from '@/components/os/OSContext';
 import AboutApp from './AboutApp';
 import CertificationsApp from './CertificationsApp';
+import CommunityApp from './CommunityApp';
 import ContactApp from './ContactApp';
 import ExperienceApp from './ExperienceApp';
 import ProjectsApp from './ProjectsApp';
@@ -70,6 +71,16 @@ export const APPS: AppDef[] = [
     size: { w: 780, h: 640 },
     keywords: 'work internships jobs career leadership',
     component: ExperienceApp,
+  },
+  {
+    id: 'community',
+    name: 'Community',
+    title: 'Community',
+    icon: HeartHandshake,
+    gradient: 'linear-gradient(180deg, #ffa36b 0%, #f0503c 100%)',
+    size: { w: 820, h: 680 },
+    keywords: 'volunteering volunteer benevolat bénévolat sports club ecdh community leadership',
+    component: CommunityApp,
   },
   {
     id: 'certifications',

@@ -396,3 +396,50 @@ export const skillLevelLabel = (level: number) =>
 
 /** "Issuer · Mon YYYY" — skips the date when it isn't published. */
 export const certMeta = (c: Certification) => [c.issuer, c.issued].filter(Boolean).join(' · ');
+
+export interface Volunteering {
+  id: string;
+  role: string;
+  org: string;
+  cause: string;
+  /** YYYY-MM, used for the timeline ribbon. */
+  start: string;
+  end: string;
+  description: string;
+  highlights: string[];
+  logo: string;
+  /** Background behind the logo tile, matched to the logo's own artwork. */
+  logoBg: string;
+}
+
+export const volunteering: Volunteering[] = [
+  {
+    id: 'sports-club',
+    role: 'Founder & President',
+    org: '1337 MED Sports Club',
+    cause: 'Education',
+    start: '2022-12',
+    end: '2025-05',
+    description:
+      'Founded the 1337 MED Sports Club to give students a dynamic space to engage in a wide range of sports and recreational activities, driven by students.',
+    highlights: ['Founded the club from scratch', 'Led it for 2½ years', 'Student-driven sports & recreation'],
+    logo: '/images/1337-sports-club.png',
+    logoBg: '#000000',
+  },
+  {
+    id: 'ecdh',
+    role: 'IT Cell Member',
+    org: 'ECDH — Espace Citoyenneté pour le Développement Humain',
+    cause: 'Social services',
+    start: '2023-06',
+    end: '2024-11',
+    description:
+      "Contributed to the association's digital presence and technical support, helping maintain the organization's online tools.",
+    highlights: ['Digital presence', 'Technical support', 'Non-profit IT'],
+    logo: '/images/ecdh.png',
+    logoBg: '#ffffff',
+  },
+];
+
+/** Other commitments shown on the Community timeline for context (details live in Experience). */
+export const communityContext = [{ id: 'ade', label: 'ADE — President', start: '2024-01', end: '2025-03' }];

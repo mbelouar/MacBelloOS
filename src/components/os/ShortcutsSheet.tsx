@@ -14,7 +14,7 @@ export default function ShortcutsSheet({ open, onClose }: { open: boolean; onClo
       title: 'Navigation',
       items: [
         [[mod, 'K'], 'Spotlight search'],
-        [[alt, '1–8'], 'Open an app'],
+        [[alt, '1–9'], 'Open an app'],
         [['?'], 'Show this sheet'],
         [['esc'], 'Close menus & overlays'],
       ],

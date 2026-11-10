@@ -11,6 +11,7 @@ import {
   projects,
   skillCategories,
   skillLevelLabel,
+  volunteering,
 } from '@/data/portfolio';
 
 type Tone = 'out' | 'cmd' | 'err' | 'dim' | 'accent' | 'ok' | 'head';
@@ -26,6 +27,8 @@ const APP_ALIASES: Record<string, AppId> = {
   projects: 'projects',
   skills: 'skills',
   experience: 'experience',
+  community: 'community',
+  volunteer: 'community',
   certifications: 'certifications',
   certs: 'certifications',
   contact: 'contact',
@@ -35,7 +38,7 @@ const APP_ALIASES: Record<string, AppId> = {
 
 const FILES = ['README.md', 'resume_en.pdf', 'cv_fr.pdf', 'contact.txt'];
 const COMMANDS = [
-  'help', 'about', 'projects', 'skills', 'experience', 'certifications', 'education', 'contact',
+  'help', 'about', 'projects', 'skills', 'experience', 'volunteer', 'certifications', 'education', 'contact',
   'open', 'neofetch', 'ls', 'cat', 'pwd', 'whoami', 'date', 'echo', 'history', 'clear', 'exit', 'sudo',
 ];
 
@@ -116,6 +119,7 @@ export default function TerminalApp() {
             ['projects', 'Things I have built'],
             ['skills', 'Technologies & proficiency'],
             ['experience', 'Work & leadership'],
+            ['volunteer', 'Community & volunteering'],
             ['certifications', 'Verified credentials'],
             ['education', 'Schools & programs'],
             ['contact', 'How to reach me'],
@@ -164,6 +168,15 @@ export default function TerminalApp() {
           out.push(L(''), L(`${e.role} — ${e.company}`, 'accent'), L(`  ${e.period} · ${e.type}`, 'dim'));
           e.highlights.forEach((h) => out.push(L(`  • ${h}`)));
         });
+        break;
+      case 'volunteer':
+      case 'volunteering':
+      case 'community':
+        out = [L('Community & volunteering', 'head')];
+        volunteering.forEach((v) => {
+          out.push(L(''), L(`♥ ${v.role} — ${v.org}`, 'accent'), L(`  ${v.start} → ${v.end} · ${v.cause}`, 'dim'), L(`  ${v.description}`));
+        });
+        out.push(L(''), L('Tip: `open community` for the timeline view.', 'dim'));
         break;
       case 'certifications':
       case 'certs':

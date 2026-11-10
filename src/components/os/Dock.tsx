@@ -26,7 +26,7 @@ export default function Dock({ hidden, mobile }: { hidden: boolean; mobile: bool
   const coarse = useCoarsePointer();
   const mouseX = useMotionValue(Infinity);
   const magnify = !coarse && !mobile;
-  const size = mobile ? 44 : BASE;
+  const size = mobile ? 38 : BASE;
 
   const dockApps = APPS.filter((a) => a.id !== 'resume');
   const docApps = APPS.filter((a) => a.id === 'resume');
