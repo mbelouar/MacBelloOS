@@ -20,7 +20,7 @@ body {
 }
 
 body {
-  background: #0a0a0c;
+  background: #07080f;
   color: rgb(var(--ink));
   font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -166,6 +166,23 @@ body {
   .scrollbar-none::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* Aurora backdrop drift (see Backdrop.tsx) */
+@keyframes aurora-a {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(6%, 4%, 0) scale(1.12); }
+}
+@keyframes aurora-b {
+  0% { transform: translate3d(0, 0, 0) scale(1.05); }
+  100% { transform: translate3d(-5%, 6%, 0) scale(0.95); }
+}
+@keyframes aurora-c {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(-6%, -5%, 0) scale(1.1); }
+}
+@keyframes aurora-spin {
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {

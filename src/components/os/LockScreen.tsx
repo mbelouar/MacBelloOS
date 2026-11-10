@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { profile } from '@/data/portfolio';
 import { useNow } from '@/lib/hooks';
+import Backdrop from './Backdrop';
 
 const EASE = [0.32, 0.72, 0, 1] as const;
 
@@ -36,10 +37,9 @@ export default function LockScreen({ onUnlock }: { onUnlock: () => void }) {
       exit={{ opacity: 0, scale: 1.04, filter: 'blur(14px)', transition: { duration: 0.6, ease: EASE } }}
       transition={{ duration: 0.5 }}
       onClick={unlock}
-      className="fixed inset-0 z-[10000] cursor-pointer select-none overflow-hidden bg-[#0a0a0c] bg-cover bg-center"
-      style={{ backgroundImage: 'url(/wallpaper.jpg)' }}
+      className="fixed inset-0 z-[10000] cursor-pointer select-none overflow-hidden bg-[#07080f]"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/60" />
+      <Backdrop dim={0.15} />
 
       {/* Clock */}
       <motion.div

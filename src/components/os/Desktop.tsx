@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
 import { AnimatePresence, MotionConfig, motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import { APP_MAP } from '@/components/apps/registry';
 import { useCoarsePointer, useIsMac, useIsMobile, useViewport } from '@/lib/hooks';
+import Backdrop from './Backdrop';
 import DesktopHome from './DesktopHome';
 import Dock from './Dock';
 import LockScreen from './LockScreen';
@@ -77,27 +78,10 @@ function Wallpaper() {
   }, [coarse, reduced, mx, my]);
 
   return (
-    <div aria-hidden className="fixed inset-0 overflow-hidden bg-[#0a0a0c]">
-      <motion.div
-        className="absolute -inset-6 bg-cover bg-center"
-        style={{ backgroundImage: 'url(/wallpaper.jpg)', x, y }}
-      />
-      {/* Soft cool glow where the light falls on the wallpaper */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(60% 50% at 52% 58%, rgb(138 180 255 / 0.07), transparent 70%), linear-gradient(180deg, rgb(0 0 0 / 0.15), rgb(0 0 0 / 0.05) 40%, rgb(0 0 0 / 0.45))',
-        }}
-      />
-      {/* Film grain for depth */}
-      <div
-        className="absolute inset-0 opacity-[0.05] mix-blend-overlay"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-        }}
-      />
+    <div aria-hidden className="fixed inset-0 overflow-hidden bg-[#07080f]">
+      <motion.div className="absolute -inset-6" style={{ x, y }}>
+        <Backdrop />
+      </motion.div>
     </div>
   );
 }

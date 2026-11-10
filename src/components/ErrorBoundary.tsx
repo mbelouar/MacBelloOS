@@ -33,7 +33,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
       }
 
       return (
-        <div className="fixed inset-0 flex items-center justify-center bg-[#0a0a0c] p-6 text-white">
+        <div className="fixed inset-0 flex items-center justify-center bg-[#07080f] p-6 text-white">
           <div className="max-w-sm text-center">
             <p className="text-5xl">:(</p>
             <h1 className="mt-6 text-xl font-semibold">Something went wrong</h1>
