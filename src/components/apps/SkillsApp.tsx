@@ -127,7 +127,9 @@ function SkillTile({ skill, delay }: { skill: Skill; delay: number }) {
           )}
         </span>
         <div className="min-w-0">
-          <p className="truncate text-[13px] font-medium">{skill.name}</p>
+          <p className="line-clamp-2 text-[13px] font-medium leading-tight" title={skill.name}>
+            {skill.name}
+          </p>
           <p className="text-[11px] text-ink-faint">{skillLevelLabel(skill.level)}</p>
         </div>
       </div>

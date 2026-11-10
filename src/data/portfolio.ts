@@ -109,6 +109,8 @@ export const projects: Project[] = [
 
 // Logos from devicon (MIT), self-hosted in /public/icons for speed and reliability.
 const devicon = (path: string) => `/icons/${path.split('/').pop()}`;
+/** Custom icons (Lucide paths, ISC) for skills that have no official logo. */
+const localIcon = (file: string) => `/icons/${file}`;
 
 export interface Skill {
   name: string;
@@ -133,12 +135,26 @@ export const skillCategories: SkillCategory[] = [
       { name: 'Terraform', level: 85, icon: devicon('terraform/terraform-original.svg') },
       { name: 'CI/CD', level: 85, icon: devicon('githubactions/githubactions-original.svg') },
       { name: 'Azure', level: 75, icon: devicon('azure/azure-original.svg') },
-      { name: 'Oracle Cloud', level: 75, icon: devicon('oracle/oracle-original.svg') },
+      { name: 'Oracle Cloud', level: 75, icon: '/images/oracleimg1.png' },
       { name: 'Prometheus', level: 75, icon: devicon('prometheus/prometheus-original.svg') },
       { name: 'Grafana', level: 75, icon: devicon('grafana/grafana-original.svg') },
+      { name: 'Jenkins', level: 75, icon: devicon('jenkins/jenkins-original.svg') },
+      { name: 'GitLab CI', level: 75, icon: devicon('gitlab/gitlab-original.svg') },
+      { name: 'Podman', level: 75, icon: devicon('podman/podman-original.svg') },
+      { name: 'Windows Server / AD', level: 75, icon: devicon('windows11/windows11-original.svg') },
       { name: 'AWS', level: 70, icon: devicon('amazonwebservices/amazonwebservices-original.svg') },
       { name: 'ArgoCD', level: 70, icon: devicon('argocd/argocd-original.svg') },
+      { name: 'Ansible', level: 70, icon: devicon('ansible/ansible-original.svg') },
       { name: 'Vagrant', level: 70, icon: devicon('vagrant/vagrant-original.svg') },
+    ],
+  },
+  {
+    id: 'ai-quality',
+    title: 'AI & Quality Engineering',
+    skills: [
+      { name: 'GenAI Evaluation', level: 85, icon: localIcon('ai-llm-eval.svg') },
+      { name: 'Test Automation', level: 85, icon: localIcon('test-automation.svg') },
+      { name: 'AI Agents', level: 75, icon: localIcon('ai-agents.svg') },
     ],
   },
   {
@@ -147,6 +163,8 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: 'C / C++', level: 90, icon: devicon('cplusplus/cplusplus-original.svg') },
       { name: 'Python', level: 85, icon: devicon('python/python-original.svg') },
+      { name: 'JavaScript / Node.js', level: 85, icon: devicon('nodejs/nodejs-original.svg') },
+      { name: 'Bash', level: 85, icon: devicon('bash/bash-original.svg') },
     ],
   },
   {
@@ -154,8 +172,11 @@ export const skillCategories: SkillCategory[] = [
     title: 'Frameworks & Databases',
     skills: [
       { name: 'Django', level: 90, icon: devicon('django/django-plain.svg') },
+      { name: 'Oracle APEX', level: 85, icon: '/images/oracleimg1.png' },
       { name: 'MySQL', level: 85, icon: devicon('mysql/mysql-original.svg') },
+      { name: 'PostgreSQL', level: 80, icon: devicon('postgresql/postgresql-original.svg') },
       { name: 'MongoDB', level: 80, icon: devicon('mongodb/mongodb-original.svg') },
+      { name: 'Oracle DB / PL/SQL', level: 75, icon: '/images/oracleimg1.png' },
     ],
   },
   {

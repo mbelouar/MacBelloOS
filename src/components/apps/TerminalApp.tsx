@@ -148,11 +148,12 @@ export default function TerminalApp() {
         break;
       case 'skills':
         out = [L('Skills', 'head')];
+        const width = Math.max(...skillCategories.flatMap((c) => c.skills.map((s) => s.name.length))) + 2;
         skillCategories.forEach((c) => {
           out.push(L(''), L(c.title, 'accent'));
           c.skills.forEach((s) => {
             const bars = s.level >= 90 ? 5 : s.level >= 80 ? 4 : 3;
-            out.push(L(`  ${pad(s.name, 16)}${'■'.repeat(bars)}${'□'.repeat(5 - bars)}  ${skillLevelLabel(s.level)}`));
+            out.push(L(`  ${pad(s.name, width)}${'■'.repeat(bars)}${'□'.repeat(5 - bars)}  ${skillLevelLabel(s.level)}`));
           });
         });
         break;
