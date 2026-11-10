@@ -65,7 +65,7 @@ export default function Dock({ hidden, mobile }: { hidden: boolean; mobile: bool
             bounceKey={launchTick?.id === app.id ? launchTick.n : 0}
             onClick={() => onActivate(app)}
           >
-            {(s) => <AppIcon icon={app.icon} gradient={app.gradient} glyph={app.glyph} size={s} />}
+            {(s) => <AppIcon icon={app.icon} accent={app.accent} size={s} />}
           </DockItem>
         ))}
 
@@ -85,35 +85,19 @@ export default function Dock({ hidden, mobile }: { hidden: boolean; mobile: bool
             bounceKey={launchTick?.id === app.id ? launchTick.n : 0}
             onClick={() => onActivate(app)}
           >
-            {(s) => <AppIcon icon={app.icon} gradient={app.gradient} glyph={app.glyph} size={s} />}
+            {(s) => <AppIcon icon={app.icon} accent={app.accent} size={s} />}
           </DockItem>
         ))}
         <DockItem id="github" label="GitHub ↗" mouseX={mouseX} base={size} magnify={magnify} href={profile.github}>
-          {(s) => <LinkTile size={s} className="bg-gradient-to-b from-[#2b2f36] to-[#0d1117]"><GithubIcon style={{ width: s * 0.52, height: s * 0.52 }} /></LinkTile>}
+          {(s) => <AppIcon icon={GithubIcon} accent="#c9d1d9" filled size={s} />}
         </DockItem>
         <DockItem id="linkedin" label="LinkedIn ↗" mouseX={mouseX} base={size} magnify={magnify} href={profile.linkedin}>
-          {(s) => <LinkTile size={s} className="bg-gradient-to-b from-[#2f8cff] to-[#0a5fc2]"><LinkedinIcon style={{ width: s * 0.48, height: s * 0.48 }} /></LinkTile>}
+          {(s) => <AppIcon icon={LinkedinIcon} accent="#3b8eea" filled size={s} />}
         </DockItem>
           </>
         )}
       </div>
     </motion.nav>
-  );
-}
-
-function LinkTile({ size, className, children }: { size: number; className: string; children: React.ReactNode }) {
-  return (
-    <span
-      className={`relative flex items-center justify-center overflow-hidden text-white ${className}`}
-      style={{
-        width: size,
-        height: size,
-        borderRadius: size * 0.235,
-        boxShadow: 'inset 0 1px 0 rgb(255 255 255 / 0.3), inset 0 0 0 0.5px rgb(255 255 255 / 0.12), 0 4px 12px -2px rgb(0 0 0 / 0.45)',
-      }}
-    >
-      {children}
-    </span>
   );
 }
 
