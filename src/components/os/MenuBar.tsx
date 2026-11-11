@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Check, Search } from 'lucide-react';
 import { APPS, APP_MAP } from '@/components/apps/registry';
 import { profile } from '@/data/portfolio';
+import { Logo } from '@/components/ui/BrandIcons';
 import { useIsMac, useNow } from '@/lib/hooks';
 import { useOS } from './OSContext';
 import { MENU_H } from './Window';
@@ -52,7 +53,7 @@ export default function MenuBar({ onShowShortcuts }: { onShowShortcuts: () => vo
   const menus: Menu[] = [
     {
       id: 'brand',
-      label: <span className="text-[13px] font-bold tracking-tight">MB</span>,
+      label: <Logo className="h-[15px] w-auto" />,
       items: [
         { label: 'About This Portfolio', action: () => os.open('about') },
         { divider: true, label: '' },

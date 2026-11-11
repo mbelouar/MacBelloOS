@@ -14,6 +14,28 @@ export const LinkedinIcon = (props: Props) => (
   </svg>
 );
 
-export const Monogram = ({ className = '' }: { className?: string }) => (
-  <span className={`inline-flex items-center justify-center font-bold tracking-tight ${className}`}>MB</span>
-);
+/* Personal "B" mark: two stacked rounded D shapes, blue→violet over violet→pink. */
+const LOGO_TOP =
+  'M323 148H529A169 169 0 0 1 529 486H323A50 50 0 0 1 273 436V198A50 50 0 0 1 323 148ZM376 250V384H530A67 67 0 0 0 530 250Z';
+const LOGO_BOTTOM =
+  'M323 517H571A179 179 0 0 1 571 875H323A50 50 0 0 1 273 825V567A50 50 0 0 1 323 517ZM376 619V773H571A77 77 0 0 0 571 619Z';
+
+export const Logo = ({ title = 'Mohammed Belouarraq', ...props }: Props & { title?: string }) => {
+  const id = React.useId().replace(/:/g, '');
+  return (
+    <svg viewBox="263 138 497 747" role="img" aria-label={title} {...props}>
+      <defs>
+        <linearGradient id={`${id}t`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#3D63F2" />
+          <stop offset="1" stopColor="#7553EE" />
+        </linearGradient>
+        <linearGradient id={`${id}b`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#A843D6" />
+          <stop offset="1" stopColor="#EC4F8C" />
+        </linearGradient>
+      </defs>
+      <path d={LOGO_TOP} fill={`url(#${id}t)`} />
+      <path d={LOGO_BOTTOM} fill={`url(#${id}b)`} />
+    </svg>
+  );
+};

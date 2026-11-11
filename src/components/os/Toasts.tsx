@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useOS } from './OSContext';
+import { Logo } from '@/components/ui/BrandIcons';
 
 export default function Toasts() {
   const { toasts, dismissToast } = useOS();
@@ -20,7 +21,7 @@ export default function Toasts() {
             className="material-thick group pointer-events-auto relative flex items-start gap-3 rounded-2xl p-3.5 shadow-popover"
           >
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-gradient-to-b from-[#2a2a30] to-[#0c0c0e] text-[11px] font-bold ring-1 ring-white/10">
-              {t.icon ?? 'MB'}
+              {t.icon ?? <Logo className="h-5 w-auto" />}
             </span>
             <div className="min-w-0 flex-1 pr-4">
               <p className="text-[13px] font-semibold">{t.title}</p>
