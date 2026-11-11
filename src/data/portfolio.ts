@@ -6,7 +6,7 @@ export const profile = {
   shortName: 'Mohammed',
   initials: 'MB',
   role: 'Software Engineer',
-  headline: 'DevOps & Cloud Engineer in the making',
+  headline: 'Software Engineer',
   tagline: 'I build, ship and run cloud-native infrastructure — Kubernetes, containers, IaC and the pipelines that glue them together.',
   location: 'Casablanca, Morocco',
   timezone: 'Africa/Casablanca',
